@@ -1,7 +1,6 @@
 package learnprogramming.academy.stattrack;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class MatchAdapter extends BaseAdapter {
     private java.util.List<Match> matchList;
@@ -44,6 +43,32 @@ public class MatchAdapter extends BaseAdapter {
         Match match = matchList.get(position);
 
         ImageView championIcon = view.findViewById(R.id.championId);
+
+        ImageView item0 = view.findViewById(R.id.item0ImageView);
+        ImageView item1 = view.findViewById(R.id.item1ImageView);
+        ImageView item2 = view.findViewById(R.id.item2ImageView);
+        ImageView item3 = view.findViewById(R.id.item3ImageView);
+        ImageView item4 = view.findViewById(R.id.item4ImageView);
+        ImageView item5 = view.findViewById(R.id.item5ImageView);
+        ImageView item6 = view.findViewById(R.id.item6ImageView);
+        ImageView spell1 = view.findViewById(R.id.spell1ImageView);
+        ImageView spell2 = view.findViewById(R.id.spell2ImageView);
+
+        ArrayList<ImageView> imageViews = new ArrayList<>();
+        imageViews.add(championIcon);
+        imageViews.add(item0);
+        imageViews.add(item1);
+        imageViews.add(item2);
+        imageViews.add(item3);
+        imageViews.add(item4);
+        imageViews.add(item5);
+        imageViews.add(item6);
+        imageViews.add(spell1);
+        imageViews.add(spell2);
+
+
+        setIcons(match, imageViews);
+
         TextView matchResult = view.findViewById(R.id.matchResultText);
         TextView killsDeathsAssists = view.findViewById(R.id.killsDeathsAssistsText);
         TextView kda = view.findViewById(R.id.kdaText);
@@ -54,10 +79,6 @@ public class MatchAdapter extends BaseAdapter {
         TextView damageTaken = view.findViewById(R.id.totalDamageTakenText);
         TextView minionsKilled = view.findViewById(R.id.minionsKilledText);
 
-        String imageName = match.getChampionIcon().toLowerCase();
-        int imageId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
-
-        championIcon.setImageResource(imageId);
         matchResult.append(match.getMatchResult());
         killsDeathsAssists.append(match.getKillsDeathsAssists());
         kda.append(Double.toString(match.getKda()));
@@ -69,6 +90,50 @@ public class MatchAdapter extends BaseAdapter {
         minionsKilled.append(Integer.toString(match.getMinionsKilled()));
 
         return view;
+    }
+
+    private void setIcons(Match match, ArrayList<ImageView> imageViews){
+        String iconName = match.getChampionIcon().toLowerCase();
+        int imageId = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
+
+        imageViews.get(0).setImageResource(imageId);
+
+        iconName = match.getItems().get(0);
+        imageId = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
+        imageViews.get(1).setImageResource(imageId);
+
+        iconName = match.getItems().get(1);
+        imageId = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
+        imageViews.get(2).setImageResource(imageId);
+
+        iconName = match.getItems().get(2);
+        imageId = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
+        imageViews.get(3).setImageResource(imageId);
+
+        iconName = match.getItems().get(3);
+        imageId = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
+        imageViews.get(4).setImageResource(imageId);
+
+        iconName = match.getItems().get(4);
+        imageId = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
+        imageViews.get(5).setImageResource(imageId);
+
+        iconName = match.getItems().get(5);
+        imageId = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
+        imageViews.get(6).setImageResource(imageId);
+
+        iconName = match.getItems().get(6);
+        imageId = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
+        imageViews.get(7).setImageResource(imageId);
+
+        iconName = match.getSpells().get(0);
+        imageId = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
+        imageViews.get(8).setImageResource(imageId);
+
+        iconName = match.getSpells().get(1);
+        imageId = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
+        imageViews.get(9).setImageResource(imageId);
+
     }
 
 }

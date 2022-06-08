@@ -83,11 +83,24 @@ public class ShowMatches extends AppCompatActivity {
                     for(int i = 0; i < jsonArray.length(); i++) {
                         JSONObject matchInfo = jsonArray.getJSONObject(i);
 
+                        ArrayList<String> items = new ArrayList<>();
+                        items.add("a" + matchInfo.getString("item0"));
+                        items.add("a" + matchInfo.getString("item1"));
+                        items.add("a" + matchInfo.getString("item2"));
+                        items.add("a" + matchInfo.getString("item3"));
+                        items.add("a" + matchInfo.getString("item4"));
+                        items.add("a" + matchInfo.getString("item5"));
+                        items.add("a" + matchInfo.getString("item6"));
+
+                        ArrayList<String> spells = new ArrayList<>();
+                        spells.add("s" + matchInfo.getString("summonerSpell1Id"));
+                        spells.add("s" + matchInfo.getString("summonerSpell2Id"));
+
                         Match match = new Match(i, matchInfo.getString("championIcon"), matchInfo.getDouble("kda"),
                                 matchInfo.getString("matchResult"), matchInfo.getString("killsDeathsAssists"),
                                 matchInfo.getInt("controlWardsPlaced"), matchInfo.getInt("wardsKilled"),
                                 matchInfo.getInt("wardsPlaced"), matchInfo.getInt("damageDealt"),
-                                matchInfo.getInt("damageTaken"), matchInfo.getInt("minionsKilled"));
+                                matchInfo.getInt("damageTaken"), matchInfo.getInt("minionsKilled"), items, spells);
                         matchList.add(match);
                     }
                     setUpAdapter(matchList);

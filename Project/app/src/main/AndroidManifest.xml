@@ -16,7 +16,16 @@
         android:theme="@style/Theme.Stattrack"
         tools:targetApi="31">
         <activity
+            android:name=".RegisterActivity"
+            android:parentActivityName=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:parentActivityName=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".ShowMatches"
+            android:parentActivityName=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

@@ -5,6 +5,8 @@ import android.os.Parcelable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class Match implements Parcelable {
 
     private int id;
@@ -18,26 +20,8 @@ public class Match implements Parcelable {
     private int damageDealt;
     private int damageTaken;
     private int minionsKilled;
-
-    public static final Creator<Match> CREATOR = new Creator<Match>() {
-        @Override
-        public Match createFromParcel(Parcel in) {
-            return new Match(in);
-        }
-
-        @Override
-        public Match[] newArray(int size) {
-            return new Match[size];
-        }
-    };
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private ArrayList<String> items;
+    private ArrayList<String> spells;
 
 
     public Match(Parcel in){
@@ -56,11 +40,51 @@ public class Match implements Parcelable {
         this.damageDealt = Integer.parseInt(data[8]);
         this.damageTaken = Integer.parseInt(data[9]);
         this.minionsKilled = Integer.parseInt(data[10]);
+        this.items = in.readArrayList(Match.class.getClassLoader());
+        this.spells = in.readArrayList(Match.class.getClassLoader());
     }
 
     @Override
     public int describeContents() {
         return 0;
+    }
+    public static final Creator<Match> CREATOR = new Creator<Match>() {
+        @Override
+        public Match createFromParcel(Parcel in) {
+            return new Match(in);
+        }
+
+        @Override
+        public Match[] newArray(int size) {
+            return new Match[size];
+        }
+    };
+
+    public ArrayList<String> getSpells() {
+        return spells;
+    }
+
+    public void setSpells(ArrayList<String> spells) {
+        this.spells = spells;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+
+
+    public ArrayList<String> getItems() {
+        return items;
+    }
+
+    public void setItems(ArrayList<String> items) {
+        this.items = items;
     }
 
     @Override
@@ -76,10 +100,13 @@ public class Match implements Parcelable {
         parcel.writeInt(damageDealt);
         parcel.writeInt(damageTaken);
         parcel.writeInt(minionsKilled);
+        parcel.writeList(items);
+        parcel.writeList(spells);
     }
 
     public Match(int id, String championIcon, double kda, String matchResult, String killsDeathsAssists, int controlWardsPlaced,
-                 int wardsKilled, int wardsPlaced, int damageDealt, int damageTaken, int minionsKilled) {
+                 int wardsKilled, int wardsPlaced, int damageDealt, int damageTaken, int minionsKilled, ArrayList<String> items,
+                 ArrayList<String> spells) {
         this.id = id;
         this.championIcon = championIcon;
         this.kda = kda;
@@ -91,6 +118,8 @@ public class Match implements Parcelable {
         this.damageDealt = damageDealt;
         this.damageTaken = damageTaken;
         this.minionsKilled = minionsKilled;
+        this.items = items;
+        this.spells = spells;
     }
 
     public String getChampionIcon() {
