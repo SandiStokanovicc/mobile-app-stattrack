@@ -1,9 +1,11 @@
 package learnprogramming.academy.stattrack;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Match {
+public class Match implements Parcelable {
 
     private int id;
     private String championIcon;
@@ -17,12 +19,63 @@ public class Match {
     private int damageTaken;
     private int minionsKilled;
 
+    public static final Creator<Match> CREATOR = new Creator<Match>() {
+        @Override
+        public Match createFromParcel(Parcel in) {
+            return new Match(in);
+        }
+
+        @Override
+        public Match[] newArray(int size) {
+            return new Match[size];
+        }
+    };
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+
+    public Match(Parcel in){
+        String[] data = new String[11];
+
+        in.readStringArray(data);
+
+        this.id = Integer.parseInt(data[0]);
+        this.championIcon = data[1];
+        this.kda = Double.parseDouble(data[2]);
+        this.matchResult = data[3];
+        this.killsDeathsAssists = data[4];
+        this.controlWardsPlaced = Integer.parseInt(data[5]);
+        this.wardsKilled = Integer.parseInt(data[6]);
+        this.wardsPlaced = Integer.parseInt(data[7]);
+        this.damageDealt = Integer.parseInt(data[8]);
+        this.damageTaken = Integer.parseInt(data[9]);
+        this.minionsKilled = Integer.parseInt(data[10]);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(championIcon);
+        parcel.writeDouble(kda);
+        parcel.writeString(matchResult);
+        parcel.writeString(killsDeathsAssists);
+        parcel.writeInt(controlWardsPlaced);
+        parcel.writeInt(wardsKilled);
+        parcel.writeInt(wardsPlaced);
+        parcel.writeInt(damageDealt);
+        parcel.writeInt(damageTaken);
+        parcel.writeInt(minionsKilled);
     }
 
     public Match(int id, String championIcon, double kda, String matchResult, String killsDeathsAssists, int controlWardsPlaced,
@@ -119,8 +172,5 @@ public class Match {
     public void setMinionsKilled(int minionsKilled) {
         this.minionsKilled = minionsKilled;
     }
-
-
-
 
 }

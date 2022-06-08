@@ -3,6 +3,7 @@ package learnprogramming.academy.stattrack;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import java.util.List;
 public class ShowMatches extends AppCompatActivity {
     private RequestQueue apiRequestQueue;
     private TextView resultsFromApi;
+    private List<Match> matchList;
     public ListView listView;
 
     @Override
@@ -32,18 +34,34 @@ public class ShowMatches extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_matches);
 
-        //Toast.makeText(this, "LOADING MATCHES!!!", Toast.LENGTH_LONG).show();
-
-
-        apiRequestQueue = Volley.newRequestQueue(this); // moguce da ce se ovo morati promijeniti kad se promjeni activity
-
-        Bundle extras = getIntent().getExtras();
-
+        matchList = new ArrayList<>();
         listView = findViewById(R.id.match_listview);
-        Log.d(extras.getString("URL"), "onCreate: ");
-        Toast.makeText(this, extras.getString("LOADING MATCHES!"), Toast.LENGTH_LONG).show();
-        jsonParse(extras.getString("URL"));
 
+        if (savedInstanceState != null){
+            matchList = savedInstanceState.getParcelableArrayList("match_list");
+            setUpAdapter(matchList);
+        }
+        else {
+
+            //Toast.makeText(this, "LOADING MATCHES!!!", Toast.LENGTH_LONG).show();
+
+
+            apiRequestQueue = Volley.newRequestQueue(this); // moguce da ce se ovo morati promijeniti kad se promjeni activity
+
+            Bundle extras = getIntent().getExtras();
+
+
+            Log.d(extras.getString("URL"), "onCreate: ");
+            Toast.makeText(this, "LOADING MATCHES!", Toast.LENGTH_LONG).show();
+            jsonParse(extras.getString("URL"));
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putParcelableArrayList("match_list", (ArrayList<? extends Parcelable>) matchList);
     }
 
     public void setUpAdapter(List<Match> matchList){
@@ -61,7 +79,7 @@ public class ShowMatches extends AppCompatActivity {
                 JSONArray jsonArray = null;
                 try {
                     jsonArray = responseJSON.getJSONArray("matches");
-                    List<Match> matchList = new ArrayList<>();
+
                     for(int i = 0; i < jsonArray.length(); i++) {
                         JSONObject matchInfo = jsonArray.getJSONObject(i);
 
@@ -85,6 +103,5 @@ public class ShowMatches extends AppCompatActivity {
             }
         });
         apiRequestQueue.add(request);
-
     }
 }
