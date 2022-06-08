@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#756f6f">
+
+    <TextView
+        android:id="@+id/minionsKilledText"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="16dp"
+        android:text="Creep Score: "
+        app:layout_constraintStart_toStartOf="@+id/totalDamageTakenText"
+        app:layout_constraintTop_toBottomOf="@+id/totalDamageTakenText" />
+
+    <TextView
+        android:id="@+id/totalDamageDealtText"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:text="Damage Dealt: "
+        app:layout_constraintBaseline_toBaselineOf="@+id/controlWardsPlacedText"
+        app:layout_constraintStart_toEndOf="@+id/controlWardsPlacedText" />
+
+    <TextView
+        android:id="@+id/totalDamageTakenText"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="16dp"
+        android:text="Damage Taken: "
+        app:layout_constraintStart_toStartOf="@+id/totalDamageDealtText"
+        app:layout_constraintTop_toBottomOf="@+id/totalDamageDealtText" />
+
+    <TextView
+        android:id="@+id/wardsKilledText"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="16dp"
+        android:text="Wards Killed: "
+        app:layout_constraintStart_toStartOf="@+id/controlWardsPlacedText"
+        app:layout_constraintTop_toBottomOf="@+id/controlWardsPlacedText" />
+
+    <TextView
+        android:id="@+id/controlWardsPlacedText"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:text="ControlWards: "
+        app:layout_constraintBaseline_toBaselineOf="@+id/matchResultText"
+        app:layout_constraintStart_toEndOf="@+id/matchResultText" />
+
+    <TextView
+        android:id="@+id/wardsPlacedText"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="16dp"
+        android:text="Wards Placed: "
+        app:layout_constraintStart_toStartOf="@+id/wardsKilledText"
+        app:layout_constraintTop_toBottomOf="@+id/wardsKilledText" />
+
+    <ImageView
+        android:id="@+id/championId"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background" />
+
+    <TextView
+        android:id="@+id/matchResultText"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:hint="Victory / Defeat"
+        app:layout_constraintStart_toEndOf="@+id/championId"
+        app:layout_constraintTop_toTopOf="@+id/championId" />
+
+    <TextView
+        android:id="@+id/killsDeathsAssistsText"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:hint="K/D/A"
+        android:text="K/D/A: "
+        app:layout_constraintStart_toEndOf="@+id/championId"
+        app:layout_constraintTop_toBottomOf="@+id/matchResultText" />
+
+    <TextView
+        android:id="@+id/kdaText"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="KDA: "
+        app:layout_constraintStart_toEndOf="@+id/championId"
+        app:layout_constraintTop_toBottomOf="@+id/killsDeathsAssistsText" />
+</androidx.constraintlayout.widget.ConstraintLayout>
