@@ -1,9 +1,11 @@
 package learnprogramming.academy.stattrack;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -35,20 +37,30 @@ public class ShowMatches extends AppCompatActivity {
     private List<Match> matchList;
     public ListView listView;
     public static String isPlayingAudio;
+    public AppCompatButton visitWebsiteButton;
+    public TextView visitWebsiteText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_matches);
 
+        visitWebsiteButton = findViewById(R.id.visitWebsiteButton);
+        visitWebsiteButton.setVisibility(AppCompatButton.INVISIBLE);
+        visitWebsiteText = findViewById(R.id.visitWebsiteText);
+        visitWebsiteText.setVisibility(TextView.INVISIBLE);
+
         isPlayingAudio = "false";
         matchList = new ArrayList<>();
         listView = findViewById(R.id.match_listview);
+
 
         if (savedInstanceState != null){
             matchList = savedInstanceState.getParcelableArrayList("match_list");
             //isPlayingAudio = savedInstanceState.getString("isPlayingAudio");
             setUpAdapter(matchList);
+            visitWebsiteButton.setVisibility(AppCompatButton.VISIBLE);
+            visitWebsiteText.setVisibility(TextView.VISIBLE);
         }
         else {
 
@@ -60,6 +72,21 @@ public class ShowMatches extends AppCompatActivity {
             Log.d(extras.getString("URL"), "onCreate: ");
             Toast.makeText(this, "Loading matches!", Toast.LENGTH_SHORT).show();
             jsonParse(extras.getString("URL"));
+        }
+    }
+
+    public void visitWebsite(View view){
+        String url = visitWebsiteButton.getTag().toString();
+
+        Uri website = Uri.parse(url);
+        Intent implicitIntent = new Intent(Intent.ACTION_VIEW, website);
+
+        if(implicitIntent.resolveActivity(getPackageManager()) != null){
+            startActivity(implicitIntent);
+        }
+        else{
+            Toast.makeText(ShowMatches.this, "Unable to open website",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -135,6 +162,8 @@ public class ShowMatches extends AppCompatActivity {
                         matchList.add(match);
                     }
                     setUpAdapter(matchList);
+                    visitWebsiteButton.setVisibility(AppCompatButton.VISIBLE);
+                    visitWebsiteText.setVisibility(TextView.VISIBLE);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
