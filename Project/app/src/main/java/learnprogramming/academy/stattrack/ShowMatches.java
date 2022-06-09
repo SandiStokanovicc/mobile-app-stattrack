@@ -2,6 +2,7 @@ package learnprogramming.academy.stattrack;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -20,12 +21,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShowMatches extends AppCompatActivity {
     private RequestQueue apiRequestQueue;
-    private TextView resultsFromApi;
     private List<Match> matchList;
     public ListView listView;
 
@@ -43,16 +46,13 @@ public class ShowMatches extends AppCompatActivity {
         }
         else {
 
-            //Toast.makeText(this, "LOADING MATCHES!!!", Toast.LENGTH_LONG).show();
-
-
             apiRequestQueue = Volley.newRequestQueue(this); // moguce da ce se ovo morati promijeniti kad se promjeni activity
 
             Bundle extras = getIntent().getExtras();
 
 
             Log.d(extras.getString("URL"), "onCreate: ");
-            Toast.makeText(this, "LOADING MATCHES!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Loading matches!", Toast.LENGTH_SHORT).show();
             jsonParse(extras.getString("URL"));
         }
     }
@@ -112,7 +112,20 @@ public class ShowMatches extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Writer writer = new StringWriter();
+                error.printStackTrace(new PrintWriter(writer));
+                String errorMessage = writer.toString();
+
+                if (errorMessage.contains("AuthFailureError"))
+                    Toast.makeText(ShowMatches.this, "API key needs to be changed",
+                            Toast.LENGTH_LONG).show();
+                else if(errorMessage.contains("ClientError"))
+                    Toast.makeText(ShowMatches.this, "No such user found",
+                            Toast.LENGTH_LONG).show();
+
                 error.printStackTrace();
+                Intent intent = new Intent(ShowMatches.this, MainActivity.class);
+                startActivity(intent);
             }
         });
         apiRequestQueue.add(request);
