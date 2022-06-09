@@ -1,6 +1,7 @@
 package learnprogramming.academy.stattrack;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.NotificationCompat;
 
 import android.app.AlarmManager;
@@ -11,6 +12,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -22,18 +24,33 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
     public EditText summonerNameInput;
     public Spinner serverSpinner;
+    public AppCompatButton loginButton;
+    private String username;
+    private String password;
     private NotificationManager notifyManager;
     private static final int NOTIFICATION_ID = 0;
     private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        loginButton = findViewById(R.id.loginButton);
         summonerNameInput = findViewById(R.id.summoner_name_input);
         serverSpinner = findViewById(R.id.server_spinner);
 
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            password = extras.getString("password");
+            username = extras.getString("username");
+            Log.d("onCreate: BUTTONVISIBILITY", Integer.toString(extras.getInt("buttonVisibility")));
+            loginButton.setVisibility(extras.getInt("buttonVisibility"));
+            //loginButton.set
+        }
+
+        //loginButton.setVisibility(AppCompatButton.INVISIBLE);
 
 
         //https://docs.oracle.com/javase/7/docs/api/java/util/Calendar.html
@@ -73,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToLogin(View view){
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent intent = new Intent(MainActivity.this, RegisterLoginFragActivity.class);
         startActivity(intent);
     }
 

@@ -60,6 +60,7 @@
         android:fontFamily="@font/poppins_regular"
         android:onClick="goToRegister"
         android:text="Register"
+        android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/loginButton"
         app:layout_constraintTop_toTopOf="parent" />
 

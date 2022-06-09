@@ -47,7 +47,7 @@ public class ShowMatches extends AppCompatActivity {
 
         if (savedInstanceState != null){
             matchList = savedInstanceState.getParcelableArrayList("match_list");
-            isPlayingAudio = savedInstanceState.getString("isPlayingAudio");
+            //isPlayingAudio = savedInstanceState.getString("isPlayingAudio");
             setUpAdapter(matchList);
         }
         else {
@@ -85,7 +85,8 @@ public class ShowMatches extends AppCompatActivity {
         }
     }
 
-
+//username
+    //bruh123lol
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
