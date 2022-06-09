@@ -97,6 +97,7 @@ public class MatchAdapter extends BaseAdapter {
         int imageId = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
 
         imageViews.get(0).setImageResource(imageId);
+        imageViews.get(0).setTag(iconName);
 
         iconName = match.getItems().get(0);
         imageId = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());

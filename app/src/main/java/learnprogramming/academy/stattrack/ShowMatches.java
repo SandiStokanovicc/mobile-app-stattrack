@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,17 +34,20 @@ public class ShowMatches extends AppCompatActivity {
     private RequestQueue apiRequestQueue;
     private List<Match> matchList;
     public ListView listView;
+    public static String isPlayingAudio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_matches);
 
+        isPlayingAudio = "false";
         matchList = new ArrayList<>();
         listView = findViewById(R.id.match_listview);
 
         if (savedInstanceState != null){
             matchList = savedInstanceState.getParcelableArrayList("match_list");
+            isPlayingAudio = savedInstanceState.getString("isPlayingAudio");
             setUpAdapter(matchList);
         }
         else {
@@ -59,24 +63,34 @@ public class ShowMatches extends AppCompatActivity {
         }
     }
 
-    public void buttonTapped(View view){
-        int id = view.getId();
-        String ourId="";
-        ourId = view.getResources().getResourceEntryName(id);
-        Log.i("button tapped", ourId);
-        //context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
-        int resourceId = this.getResources().getIdentifier(ourId,"raw","learnprogramming.academy.stattrack");
-        Log.i("button tapped2", Integer.toString(resourceId));
-        MediaPlayer mplayer = MediaPlayer.create(this, resourceId);
-        mplayer.start();
-        Log.i("button tapped3", ourId);
-
+    public void buttonTapped(View view) {
+        String audioFileName = String.valueOf(view.getTag());
+        int resourceId = getResources().getIdentifier(audioFileName, "raw", this.getPackageName());
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, resourceId);
+        if (isPlayingAudio == "false") {
+            isPlayingAudio = "true";
+            mediaPlayer.start();
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    isPlayingAudio = "false";
+                    mp.reset();
+                    mp.release();
+                }
+            });
+        }
+        else if(isPlayingAudio == "true"){
+            //mediaPlayer.reset();
+            mediaPlayer.release();
+        }
     }
+
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
+        savedInstanceState.putString("isPlayingAudio", isPlayingAudio);
         savedInstanceState.putParcelableArrayList("match_list", (ArrayList<? extends Parcelable>) matchList);
     }
 
