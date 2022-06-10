@@ -20,21 +20,13 @@ import androidx.fragment.app.Fragment;
 public class RegisterFragment extends Fragment {
     Activity activity;
     private EditText username, email, password, confirmpassword;
-    View decorView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.register_fragment_layout, container, false);
         activity = getActivity();
 
-        decorView = getActivity().getWindow().getDecorView();
-        decorView.setOnSystemUiVisibilityChangeListener(
-                new View.OnSystemUiVisibilityChangeListener() {
-                    @Override
-                    public void onSystemUiVisibilityChange(int i) {
-                        //hideSystemUI();
-                    }
-                });
 
         username = view.findViewById(R.id.usernameRegistrationId);
         email = view.findViewById(R.id.emailRegistrationId);
@@ -54,25 +46,7 @@ public class RegisterFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        //hideSystemUI();
-        super.onResume();
-    }
 
-
-    private void hideSystemUI() {
-        // Set the IMMERSIVE flag.
-        // Set the content to appear under the system bars so that the content
-        // doesn't resize when the system bars hide and show.
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN); // hide status bar
-                        //| View.SYSTEM_UI_FLAG_IMMERSIVE);
-    }
 
     private Boolean validateUsername() {
         String validate = username.getText().toString();
