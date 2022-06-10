@@ -9,67 +9,71 @@
 
     <EditText
         android:id="@+id/summoner_name_input"
-        android:layout_width="255dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="340dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="@dimen/_180sdp"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
         android:background="#FFFFFF"
         android:ems="10"
         android:fontFamily="@font/poppins_regular"
-        android:hint=" Summoner Name"
+        android:textColor="#000000"
+        android:hint="Summoner Name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/findplayerId" />
 
     <Spinner
         android:id="@+id/server_spinner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="@dimen/_180sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:textColor="?android:textColorPrimary"
+        android:background="#FFFFFF"
+        android:popupBackground="@color/white"
         android:fontFamily="@font/poppins_regular"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/summoner_name_input"
+        app:layout_constraintStart_toStartOf="@+id/summoner_name_input"
         app:layout_constraintTop_toBottomOf="@+id/summoner_name_input" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/search_player_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="276dp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
         android:background="#714444"
         android:backgroundTint="#DC3545"
         android:fontFamily="@font/poppins_regular"
         android:onClick="jsonParse"
         android:text="Search"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/summoner_name_input"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
-
+        app:layout_constraintTop_toBottomOf="@+id/findplayerId" />
+<!--
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/registerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginEnd="16sp"
         android:backgroundTint="#DC3545"
         android:fontFamily="@font/poppins_regular"
-        android:onClick="goToRegister"
+        //android:onClick="goToRegister"
         android:text="Register"
         android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/loginButton"
         app:layout_constraintTop_toTopOf="parent" />
-
+-->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
         android:backgroundTint="#DC3545"
         android:fontFamily="@font/poppins_regular"
         android:onClick="goToLogin"
@@ -79,27 +83,27 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="162dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:fontFamily="@font/poppins_regular"
         android:text="Stat Track"
         android:textColor="#FFFFFF"
-        android:textSize="30sp"
+        android:textSize="@dimen/_23sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/welcomeText"
-        android:layout_width="381dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="220dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="@dimen/_300sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_120sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
         android:text="WELCOME TO STAT TRACK"
         android:textColor="#FFFFFF"
-        android:textSize="30sp"
+        android:textSize="@dimen/_23sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,13 +111,13 @@
 
     <TextView
         android:id="@+id/findplayerId"
-        android:layout_width="188dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="121dp"
-        android:layout_marginTop="23dp"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_80sdp"
+        android:layout_marginTop="@dimen/_25sdp"
         android:text="FIND A PLAYER"
         android:textColor="#FFFFFF"
-        android:textSize="25sp"
+        android:textSize="@dimen/_19sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
 </androidx.constraintlayout.widget.ConstraintLayout>
