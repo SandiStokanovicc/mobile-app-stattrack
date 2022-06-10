@@ -19,7 +19,7 @@
         <activity
             android:name=".RegisterLoginFragActivity"
             android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".ShowMatches"
