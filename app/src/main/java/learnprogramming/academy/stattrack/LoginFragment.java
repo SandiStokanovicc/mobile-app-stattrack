@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,8 +35,6 @@ public class LoginFragment extends Fragment {
                 LogIn(view);
             }
         });
-
-
         return view;
     }
 
@@ -43,12 +42,19 @@ public class LoginFragment extends Fragment {
     {
         UserDao userDao=UserDatabase.getInstance(activity).userDao();
         User user = userDao.login(usernameLoginId.getText().toString(),passwordLoginId.getText().toString());
-        String username = user.getUsername();
-        String password = user.getPassword();
-        Intent intent=new Intent(activity, MainActivity.class);
-        intent.putExtra("username",username);
-        intent.putExtra("password",password);
-        intent.putExtra("buttonVisibility", AppCompatButton.INVISIBLE);
-        startActivity(intent);
+        if(user != null) {
+            String username = user.getUsername();
+            String password = user.getPassword();
+            Intent intent=new Intent(activity, MainActivity.class);
+            intent.putExtra("username",username);
+            intent.putExtra("password",password);
+            intent.putExtra("buttonVisibility", AppCompatButton.INVISIBLE);
+            Toast.makeText(activity, "Successfully logged in", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
+        }
+        else {
+                Toast.makeText(activity, "Incorrect login information", Toast.LENGTH_SHORT).show();
+            }
+
     }
 }

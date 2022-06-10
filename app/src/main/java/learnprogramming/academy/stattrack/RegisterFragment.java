@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -131,6 +132,7 @@ public class RegisterFragment extends Fragment {
             intent.putExtra("username",username.getText());
             intent.putExtra("password",password.getText());
             intent.putExtra("buttonVisibility", AppCompatButton.INVISIBLE);
+            Toast.makeText(activity, "Successfully registered", Toast.LENGTH_SHORT).show();
             startActivity(intent);
             //Intent intent=new Intent(activity,LoginFragment.class);
             //intent.putExtra("profilePhoto",profilePhoto);

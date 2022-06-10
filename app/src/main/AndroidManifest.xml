@@ -21,14 +21,6 @@
             android:parentActivityName=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity" />
-        <activity
             android:name=".ShowMatches"
             android:exported="false"
             android:parentActivityName=".MainActivity" />

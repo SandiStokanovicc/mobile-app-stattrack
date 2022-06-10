@@ -6,8 +6,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -24,13 +22,14 @@ public class RegisterLoginFragActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
+        /*
         if(extras!=null){
             Bundle bundle = new Bundle();
-            bundle.putString("edttext", "From Activity");
+            bundle.putString("edittext", "From Activity");
             // set Fragmentclass Arguments
             LoginFragment fragobj = new LoginFragment();
             fragobj.setArguments(bundle);
-        }
+        }*/
 
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_bar);
@@ -44,7 +43,7 @@ public class RegisterLoginFragActivity extends AppCompatActivity {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), getLifecycle());
         viewPagerAdapter.addFragment(new LoginFragment());
         viewPagerAdapter.addFragment(new RegisterFragment());
-        //viewPager.setUserInputEnabled(false);
+        viewPager.setUserInputEnabled(false);
 
         viewPager.setAdapter(viewPagerAdapter);
     }

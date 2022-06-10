@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         if(Calendar.getInstance().after(calendar)){
             calendar.add(Calendar.DAY_OF_MONTH, 1);
             //calendar.add(Calendar.SECOND, 10);
-
         }
 
         Intent intent = new Intent(MainActivity.this, NotificationBroadcast.class);
@@ -94,8 +93,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /*
     public void goToRegister(View view){
         Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
+    */
 }

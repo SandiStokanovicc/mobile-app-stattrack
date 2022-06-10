@@ -2,10 +2,16 @@ package learnprogramming.academy.stattrack;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.app.NotificationCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -40,6 +46,9 @@ public class ShowMatches extends AppCompatActivity {
     public AppCompatButton visitWebsiteButton;
     public TextView visitWebsiteText;
 
+    private static final String CHANNEL_ID = "notification_channel";
+    private NotificationManager notifyManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,10 +58,11 @@ public class ShowMatches extends AppCompatActivity {
         visitWebsiteButton.setVisibility(AppCompatButton.INVISIBLE);
         visitWebsiteText = findViewById(R.id.visitWebsiteText);
         visitWebsiteText.setVisibility(TextView.INVISIBLE);
-
-        isPlayingAudio = "false";
         matchList = new ArrayList<>();
         listView = findViewById(R.id.match_listview);
+
+        createNotificationChannel();
+        isPlayingAudio = "false";
 
 
         if (savedInstanceState != null){
@@ -112,6 +122,43 @@ public class ShowMatches extends AppCompatActivity {
         }
     }
 
+    public void sendNotification(String title, String text){
+        NotificationCompat.Builder notifyBuilder = getNotificationBuilder(title, text);
+        notifyManager.notify(1, notifyBuilder.build());
+    }
+
+    private NotificationCompat.Builder getNotificationBuilder(String title, String text){
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent pendingNotificationIntent = PendingIntent.getActivity(this, 1,
+                notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.background)
+                .setContentTitle(title)
+                .setContentText(text)
+                //.setContentIntent(pendingNotificationIntent)
+                .setAutoCancel(true);
+
+        return notifyBuilder;
+    }
+
+    public void createNotificationChannel(){
+        notifyManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID,
+                    "My notification", NotificationManager.IMPORTANCE_HIGH);
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.BLUE);
+            notificationChannel.enableVibration(true);
+            notificationChannel.setDescription("This is my notification!");
+
+            notifyManager.createNotificationChannel(notificationChannel);
+        }
+
+
+
+    }
+
 //username
     //bruh123lol
     @Override
@@ -164,6 +211,7 @@ public class ShowMatches extends AppCompatActivity {
                     setUpAdapter(matchList);
                     visitWebsiteButton.setVisibility(AppCompatButton.VISIBLE);
                     visitWebsiteText.setVisibility(TextView.VISIBLE);
+                    sendNotification("Match history", "Match history successfully loaded");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -179,10 +227,12 @@ public class ShowMatches extends AppCompatActivity {
                 if (errorMessage.contains("AuthFailureError"))
                     Toast.makeText(ShowMatches.this, "API key needs to be changed",
                             Toast.LENGTH_LONG).show();
+
                 else if(errorMessage.contains("ClientError"))
                     Toast.makeText(ShowMatches.this, "No such user found",
                             Toast.LENGTH_LONG).show();
 
+                sendNotification("Match history", "Match history could not be loaded");
                 error.printStackTrace();
                 Intent intent = new Intent(ShowMatches.this, MainActivity.class);
                 startActivity(intent);
