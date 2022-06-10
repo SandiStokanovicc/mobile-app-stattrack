@@ -25,13 +25,10 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
     public EditText summonerNameInput;
     public Spinner serverSpinner;
-    public AppCompatButton loginButton;
+    public AppCompatButton loginButton, logoutButton;
     private String username;
     private String password;
-    private NotificationManager notifyManager;
     private static final int NOTIFICATION_ID = 0;
-    private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         loginButton = findViewById(R.id.loginButton);
+        logoutButton = findViewById(R.id.logoutButton);
+        logoutButton.setVisibility(AppCompatButton.GONE);
         summonerNameInput = findViewById(R.id.summoner_name_input);
         serverSpinner = findViewById(R.id.server_spinner);
 
@@ -48,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
             password = extras.getString("password");
             username = extras.getString("username");
             Log.d("onCreate: BUTTONVISIBILITY", Integer.toString(extras.getInt("buttonVisibility")));
-            loginButton.setVisibility(extras.getInt("buttonVisibility"));
+            loginButton.setVisibility(extras.getInt("loginButtonVisibility"));
+            logoutButton.setVisibility(extras.getInt("logoutButtonVisibility"));
             //loginButton.set
         }
 
@@ -93,6 +93,12 @@ public class MainActivity extends AppCompatActivity {
     public void goToLogin(View view){
         Intent intent = new Intent(MainActivity.this, RegisterLoginFragActivity.class);
         startActivity(intent);
+    }
+
+    public void logout(View view){
+        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     /*

@@ -48,7 +48,8 @@ public class LoginFragment extends Fragment {
             Intent intent=new Intent(activity, MainActivity.class);
             intent.putExtra("username",username);
             intent.putExtra("password",password);
-            intent.putExtra("buttonVisibility", AppCompatButton.INVISIBLE);
+            intent.putExtra("loginButtonVisibility", AppCompatButton.INVISIBLE);
+            intent.putExtra("logoutButtonVisibility", AppCompatButton.VISIBLE);
             Toast.makeText(activity, "Successfully logged in", Toast.LENGTH_SHORT).show();
             startActivity(intent);
         }
