@@ -2,22 +2,18 @@ package learnprogramming.academy.stattrack;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.app.NotificationCompat;
 
 import android.app.AlarmManager;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -25,9 +21,10 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
     public EditText summonerNameInput;
     public Spinner serverSpinner;
-    public AppCompatButton loginButton, logoutButton;
+    public AppCompatButton loginButton, logoutButton, addFavoriteButton, getFavoritesButton;
     private String username;
     private String password;
+    private long userId;
     private static final int NOTIFICATION_ID = 0;
 
     @Override
@@ -36,9 +33,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        //2 lines below are for purging the DB entries
+        //UserDatabase.getInstance(this).userDao().nukeTable();
+        //UserDatabase.getInstance(this).favoritePlayerDao().nukeTable();
+
         loginButton = findViewById(R.id.loginButton);
         logoutButton = findViewById(R.id.logoutButton);
+        addFavoriteButton = findViewById(R.id.add_favorite_button);
+        getFavoritesButton = findViewById(R.id.favorites_button);
         logoutButton.setVisibility(AppCompatButton.GONE);
+        addFavoriteButton.setVisibility(AppCompatButton.GONE);
+        getFavoritesButton.setVisibility(AppCompatButton.GONE);
+
         summonerNameInput = findViewById(R.id.summoner_name_input);
         serverSpinner = findViewById(R.id.server_spinner);
 
@@ -46,9 +52,12 @@ public class MainActivity extends AppCompatActivity {
         if(extras != null){
             password = extras.getString("password");
             username = extras.getString("username");
+            userId = extras.getLong("user_id");
             Log.d("onCreate: BUTTONVISIBILITY", Integer.toString(extras.getInt("buttonVisibility")));
             loginButton.setVisibility(extras.getInt("loginButtonVisibility"));
             logoutButton.setVisibility(extras.getInt("logoutButtonVisibility"));
+            addFavoriteButton.setVisibility(extras.getInt("addFavoriteButtonVisibility"));
+            getFavoritesButton.setVisibility(extras.getInt("getFavoritesButtonVisibility"));
             //loginButton.set
         }
 
@@ -77,6 +86,32 @@ public class MainActivity extends AppCompatActivity {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         serverSpinner.setAdapter(spinnerAdapter);
 
+    }
+
+    public void showFavorites(View view){
+        if(username != null){
+            Intent intent = new Intent(MainActivity.this, ShowFavoritePlayers.class);
+            intent.putExtra("username", username);
+            intent.putExtra("password", password);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(MainActivity.this, "Log in to see favorite accounts", Toast.LENGTH_LONG);
+        }
+
+    }
+
+    public void addFavorite(View view){
+        long parentUserId = UserDatabase.getInstance(this).userDao().login(username, password).getUser_id();
+        FavoritePlayer favoritePlayer = new FavoritePlayer(summonerNameInput.getText().toString(),
+                serverSpinner.getSelectedItem().toString(),parentUserId);
+        if(!UserDatabase.getInstance(this).favoritePlayerDao()
+                .exists(favoritePlayer.getSummonerName(), favoritePlayer.getServer(), userId)) {
+            UserDatabase.getInstance(this).favoritePlayerDao().addFavoritePlayer(favoritePlayer);
+        }
+        else{
+            Toast.makeText(this, "This player was already added", Toast.LENGTH_SHORT);
+        }
     }
 
     public void jsonParse(View view){

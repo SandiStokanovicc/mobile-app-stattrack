@@ -30,8 +30,8 @@ public class MatchAdapter extends BaseAdapter {
         return matchList.get(i).getId();
     }
 
-    public MatchAdapter(List<Match> carList, Context context) {
-        this.matchList = carList;
+    public MatchAdapter(List<Match> matchList, Context context) {
+        this.matchList = matchList;
         this.context = context;
     }
 

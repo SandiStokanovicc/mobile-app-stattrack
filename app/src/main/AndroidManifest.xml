@@ -15,12 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Stattrack"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ShowFavoritePlayers"
+            android:exported="false" />
         <activity
             android:name=".RegisterLoginFragActivity"
+            android:exported="false"
             android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ShowMatches"
             android:exported="false"

@@ -60,6 +60,36 @@
         app:layout_constraintTop_toBottomOf="@+id/findplayerId" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/favorites_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#714444"
+        android:backgroundTint="#DC3545"
+        android:fontFamily="@font/poppins_regular"
+        android:onClick="showFavorites"
+        android:text="Favorites"
+        app:layout_constraintBottom_toTopOf="@+id/summoner_name_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/findplayerId" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_favorite_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:background="#714444"
+        android:backgroundTint="#DC3545"
+        android:fontFamily="@font/poppins_regular"
+        android:onClick="addFavorite"
+        android:text="Add to Favorites"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/server_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/search_player_button" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
