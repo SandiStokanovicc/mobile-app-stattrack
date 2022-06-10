@@ -83,8 +83,8 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="@dimen/_120sdp"
-        android:layout_height="@dimen/_35sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:fontFamily="@font/poppins_regular"
@@ -96,9 +96,9 @@
 
     <TextView
         android:id="@+id/welcomeText"
-        android:layout_width="@dimen/_300sdp"
-        android:layout_height="@dimen/_35sdp"
-        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_120sdp"
         android:layout_marginEnd="@dimen/_12sdp"
         android:text="WELCOME TO STAT TRACK"
@@ -111,8 +111,8 @@
 
     <TextView
         android:id="@+id/findplayerId"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_80sdp"
         android:layout_marginTop="@dimen/_25sdp"
         android:text="FIND A PLAYER"

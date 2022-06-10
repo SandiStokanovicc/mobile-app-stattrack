@@ -8,78 +8,72 @@
 
     <ImageView
         android:id="@+id/item1ImageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="@dimen/_23sdp"
+        android:layout_height="@dimen/_23sdp"
+        android:layout_marginStart="@dimen/_6sdp"
         app:layout_constraintStart_toEndOf="@+id/item0ImageView"
         app:layout_constraintTop_toTopOf="@+id/item0ImageView"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/item5ImageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="@dimen/_23sdp"
+        android:layout_height="@dimen/_23sdp"
+        android:layout_marginStart="@dimen/_6sdp"
         app:layout_constraintStart_toEndOf="@+id/item4ImageView"
-        app:layout_constraintTop_toBottomOf="@+id/item2ImageView"
+        app:layout_constraintTop_toTopOf="@+id/item4ImageView"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/spell2ImageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@+id/item6ImageView"
-        app:layout_constraintTop_toTopOf="@+id/item2ImageView"
+        android:layout_width="@dimen/_23sdp"
+        android:layout_height="@dimen/_23sdp"
+        android:layout_marginStart="@dimen/_6sdp"
+        app:layout_constraintStart_toEndOf="@+id/spell1ImageView"
+        app:layout_constraintTop_toTopOf="@+id/spell1ImageView"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/item4ImageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="@dimen/_23sdp"
+        android:layout_height="@dimen/_23sdp"
+        android:layout_marginStart="@dimen/_6sdp"
         app:layout_constraintStart_toEndOf="@+id/item3ImageView"
-        app:layout_constraintTop_toBottomOf="@+id/item1ImageView"
+        app:layout_constraintTop_toTopOf="@+id/item3ImageView"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/item3ImageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="@dimen/_23sdp"
+        android:layout_height="@dimen/_23sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        app:layout_constraintStart_toStartOf="@+id/item0ImageView"
         app:layout_constraintTop_toBottomOf="@+id/item0ImageView"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/item2ImageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="@dimen/_23sdp"
+        android:layout_height="@dimen/_23sdp"
+        android:layout_marginStart="@dimen/_6sdp"
         app:layout_constraintStart_toEndOf="@+id/item1ImageView"
         app:layout_constraintTop_toTopOf="@+id/item1ImageView"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/item0ImageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/championId"
+        android:layout_width="@dimen/_23sdp"
+        android:layout_height="@dimen/_23sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        app:layout_constraintStart_toEndOf="@+id/championId"
+        app:layout_constraintTop_toTopOf="@+id/championId"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/item6ImageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="@dimen/_23sdp"
+        android:layout_height="@dimen/_23sdp"
+        android:layout_marginStart="@dimen/_12sdp"
         app:layout_constraintBottom_toBottomOf="@+id/item5ImageView"
         app:layout_constraintStart_toEndOf="@+id/item2ImageView"
         app:layout_constraintTop_toTopOf="@+id/item2ImageView"
@@ -87,17 +81,21 @@
 
     <ImageView
         android:id="@+id/spell1ImageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/item5ImageView"
-        app:layout_constraintStart_toStartOf="@+id/spell2ImageView"
+        android:layout_width="@dimen/_23sdp"
+        android:layout_height="@dimen/_23sdp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/item4ImageView"
+        app:layout_constraintStart_toStartOf="@+id/item3ImageView"
+        app:layout_constraintTop_toBottomOf="@+id/item3ImageView"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/minionsKilledText"
         android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
         android:text="Creep Score: "
         app:layout_constraintStart_toStartOf="@+id/totalDamageTakenText"
         app:layout_constraintTop_toBottomOf="@+id/totalDamageTakenText" />
@@ -105,8 +103,8 @@
     <TextView
         android:id="@+id/totalDamageDealtText"
         android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
         android:text="Damage Dealt: "
         app:layout_constraintBaseline_toBaselineOf="@+id/controlWardsPlacedText"
         app:layout_constraintStart_toEndOf="@+id/controlWardsPlacedText" />
@@ -114,8 +112,8 @@
     <TextView
         android:id="@+id/totalDamageTakenText"
         android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
         android:text="Damage Taken: "
         app:layout_constraintStart_toStartOf="@+id/totalDamageDealtText"
         app:layout_constraintTop_toBottomOf="@+id/totalDamageDealtText" />
@@ -123,8 +121,8 @@
     <TextView
         android:id="@+id/wardsKilledText"
         android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
         android:text="Wards Killed: "
         app:layout_constraintStart_toStartOf="@+id/controlWardsPlacedText"
         app:layout_constraintTop_toBottomOf="@+id/controlWardsPlacedText" />
@@ -132,8 +130,8 @@
     <TextView
         android:id="@+id/controlWardsPlacedText"
         android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
         android:text="ControlWards: "
         app:layout_constraintBaseline_toBaselineOf="@+id/matchResultText"
         app:layout_constraintStart_toEndOf="@+id/matchResultText" />
@@ -141,18 +139,18 @@
     <TextView
         android:id="@+id/wardsPlacedText"
         android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
         android:text="Wards Placed: "
         app:layout_constraintStart_toStartOf="@+id/wardsKilledText"
         app:layout_constraintTop_toBottomOf="@+id/wardsKilledText" />
 
     <ImageView
         android:id="@+id/championId"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="@dimen/_77sdp"
+        android:layout_height="@dimen/_77sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:onClick="buttonTapped"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -161,30 +159,28 @@
     <TextView
         android:id="@+id/matchResultText"
         android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
         android:hint="Victory / Defeat"
-        app:layout_constraintStart_toEndOf="@+id/championId"
+        app:layout_constraintStart_toEndOf="@+id/item6ImageView"
         app:layout_constraintTop_toTopOf="@+id/championId" />
 
     <TextView
         android:id="@+id/killsDeathsAssistsText"
         android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
         android:hint="K/D/A"
         android:text="K/D/A: "
-        app:layout_constraintStart_toEndOf="@+id/championId"
+        app:layout_constraintStart_toStartOf="@+id/matchResultText"
         app:layout_constraintTop_toBottomOf="@+id/matchResultText" />
 
     <TextView
         android:id="@+id/kdaText"
         android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
         android:text="KDA: "
-        app:layout_constraintStart_toEndOf="@+id/championId"
+        app:layout_constraintStart_toStartOf="@+id/killsDeathsAssistsText"
         app:layout_constraintTop_toBottomOf="@+id/killsDeathsAssistsText" />
 </androidx.constraintlayout.widget.ConstraintLayout>
