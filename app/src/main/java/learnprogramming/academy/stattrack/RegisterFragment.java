@@ -140,6 +140,7 @@ public class RegisterFragment extends Fragment {
             intent.putExtra("buttonVisibility", AppCompatButton.INVISIBLE);
             Toast.makeText(activity, "Successfully registered", Toast.LENGTH_SHORT).show();
             startActivity(intent);
+            activity.finish();
             //Intent intent=new Intent(activity,LoginFragment.class);
             //intent.putExtra("profilePhoto",profilePhoto);
             //startActivity(intent);

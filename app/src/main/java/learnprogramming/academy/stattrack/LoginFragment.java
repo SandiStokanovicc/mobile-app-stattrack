@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,25 +45,19 @@ public class LoginFragment extends Fragment {
         UserDao userDao=UserDatabase.getInstance(activity).userDao();
         User user = userDao.login(usernameLoginId.getText().toString(),passwordLoginId.getText().toString());
         if(user != null) {
-            String username = user.getUsername();
-            String password = user.getPassword();
-            long userId = user.getUser_id();
+            LoginInstanceDao loginInstanceDao = UserDatabase.getInstance(activity).loginInstanceDao();
+            loginInstanceDao.addLoginInstance(new LoginInstance(user.getUsername(), user.getPassword(),
+                    user.getUser_id()));
             Intent intent=new Intent(activity, MainActivity.class);
-            intent.putExtra("username",username);
-            intent.putExtra("password",password);
-            intent.putExtra("user_id", user.getUser_id());
-            intent.putExtra("loginButtonVisibility", AppCompatButton.INVISIBLE);
-            intent.putExtra("addFavoriteButtonVisibility", AppCompatButton.VISIBLE);
-            intent.putExtra("getFavoritesButtonVisibility", AppCompatButton.VISIBLE);
-            intent.putExtra("logoutButtonVisibility", AppCompatButton.VISIBLE);
             Toast.makeText(activity, "Successfully logged in", Toast.LENGTH_SHORT).show();
-            SharedPreferences.Editor editor = getContext().getSharedPreferences("name", getContext().MODE_PRIVATE).edit();
-            editor.putLong("id", userId);
-            editor.putString("username", username);
-            editor.putString("password", password);
-            editor.putBoolean("isLoggedIn", true);
-            editor.apply();
+
+            /*
+            Log.d("LogIn: ", Long.toString(pref.getLong("id", tempId)));
+            Log.d("LogIn: ", pref.getString("username", tempUsername));
+            Log.d("LogIn: ", pref.getString("password", tempPassword));
+            */
             startActivity(intent);
+            activity.finish();
         }
         else {
                 Toast.makeText(activity, "Incorrect login information", Toast.LENGTH_SHORT).show();
