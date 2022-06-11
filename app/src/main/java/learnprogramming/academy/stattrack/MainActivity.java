@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     public EditText summonerNameInput;
     public Spinner serverSpinner;
     public AppCompatButton loginButton, logoutButton, addFavoriteButton, getFavoritesButton;
+    private LoginInstanceDao loginInstanceDao;
+    private LoginInstance loginInstance;
     private String username;
     private String password;
     private long userId;
@@ -47,26 +49,23 @@ public class MainActivity extends AppCompatActivity {
         summonerNameInput = findViewById(R.id.summoner_name_input);
         serverSpinner = findViewById(R.id.server_spinner);
 
-        Bundle extras = getIntent().getExtras();
-        if(extras != null){
-            password = extras.getString("password");
-            username = extras.getString("username");
-            userId = extras.getLong("user_id");
-            Log.d("onCreate: BUTTONVISIBILITY", Integer.toString(extras.getInt("buttonVisibility")));
-            loginButton.setVisibility(extras.getInt("loginButtonVisibility"));
-            logoutButton.setVisibility(extras.getInt("logoutButtonVisibility"));
-            addFavoriteButton.setVisibility(extras.getInt("addFavoriteButtonVisibility"));
-            getFavoritesButton.setVisibility(extras.getInt("getFavoritesButtonVisibility"));
-            //loginButton.set
+        loginInstanceDao = UserDatabase.getInstance(this).loginInstanceDao();
+        loginInstance = loginInstanceDao.checkIfLoggedIn();
 
 
-//your other codes
-        }
-        SharedPreferences prefs = getSharedPreferences("name", MODE_PRIVATE);
-        boolean isLoggedIn= prefs.getBoolean("isLoggedIn", false);
 
-        if(isLoggedIn) {
+
+        if(loginInstance != null) {
+            username = loginInstance.getUsername();
+            password = loginInstance.getPassword();
+            userId = loginInstance.getId();
+
+            Log.d("MainActivitylol: ", loginInstance.getPassword());
+            Log.d("MainActivitylol: ", loginInstance.getUsername());
+            Log.d("MainActivitylol: ", Long.toString(loginInstance.getId()));
+
             logoutButton.setVisibility(AppCompatButton.VISIBLE);
+            loginButton.setVisibility(AppCompatButton.GONE);
             addFavoriteButton.setVisibility(AppCompatButton.VISIBLE);
             getFavoritesButton.setVisibility(AppCompatButton.VISIBLE);
         }else {
@@ -141,19 +140,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToLogin(View view){
         Intent intent = new Intent(MainActivity.this, RegisterLoginFragActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        finish();
     }
 
     public void logout(View view){
-        SharedPreferences.Editor editor = getSharedPreferences("name", MODE_PRIVATE).edit();
-        editor.putString("password", "");
-        editor.putString("username", "");
-        editor.putBoolean("isLoggedIn", false);
-        editor.putLong("id", -1);
-        editor.apply();
+        loginInstanceDao.logout();
 
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
-        intent.putExtra("finish", true);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
