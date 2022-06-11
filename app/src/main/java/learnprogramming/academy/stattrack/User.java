@@ -1,15 +1,15 @@
 package learnprogramming.academy.stattrack;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 @Entity
 public class User {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "user_id")
-    private long user_id;
     private String username;
+    @NonNull
+    @PrimaryKey
     private String email;
     private String password;
 
@@ -18,14 +18,6 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
-    }
-
-    public long getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(long id) {
-        this.user_id = id;
     }
 
     public String getUsername() {

@@ -1,37 +1,30 @@
 package learnprogramming.academy.stattrack;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class LoginInstance {
-    @PrimaryKey(autoGenerate = true)
-    private long id;
     private String username;
     private String password;
-    private long userId;
+    @NonNull
+    @PrimaryKey
+    private String email;
 
-    public LoginInstance(String username, String password, long userId) {
+    public LoginInstance(String username, String password, String email) {
         this.username = username;
         this.password = password;
-        this.userId = userId;
+        this.email = email;
     }
 
-    public long getUserId() {
-        return userId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUsername() {

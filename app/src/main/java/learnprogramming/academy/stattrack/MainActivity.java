@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private LoginInstance loginInstance;
     private String username;
     private String password;
-    private long userId;
+    private String userEmail;
     private static final int NOTIFICATION_ID = 0;
 
     @Override
@@ -59,11 +59,11 @@ public class MainActivity extends AppCompatActivity {
         if(loginInstance != null) {
             username = loginInstance.getUsername();
             password = loginInstance.getPassword();
-            userId = loginInstance.getId();
+            userEmail = loginInstance.getEmail();
 
             Log.d("MainActivitylol: ", loginInstance.getPassword());
             Log.d("MainActivitylol: ", loginInstance.getUsername());
-            Log.d("MainActivitylol: ", Long.toString(loginInstance.getId()));
+            Log.d("MainActivitylol: ", loginInstance.getEmail());
 
             logoutButton.setVisibility(AppCompatButton.VISIBLE);
             loginButton.setVisibility(AppCompatButton.GONE);
@@ -116,12 +116,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addFavorite(View view){
-        long parentUserId = UserDatabase.getInstance(this).userDao().login(username, password).getUser_id();
+        String parentEmail = UserDatabase.getInstance(this).userDao().login(username, password).getEmail();
         FavoritePlayer favoritePlayer = new FavoritePlayer(summonerNameInput.getText().toString(),
-                serverSpinner.getSelectedItem().toString(),parentUserId);
+                serverSpinner.getSelectedItem().toString(), parentEmail);
         if(!UserDatabase.getInstance(this).favoritePlayerDao()
-                .exists(favoritePlayer.getSummonerName(), favoritePlayer.getServer(), userId)) {
+                .exists(favoritePlayer.getSummonerName(), favoritePlayer.getServer(), userEmail)) {
             UserDatabase.getInstance(this).favoritePlayerDao().addFavoritePlayer(favoritePlayer);
+            Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show();
         }
         else{
             Toast.makeText(this, "This player was already added", Toast.LENGTH_SHORT).show();

@@ -133,12 +133,16 @@ public class RegisterFragment extends Fragment {
         else
         {
             User user=new User(username.getText().toString(),email.getText().toString(),password.getText().toString());
-            UserDatabase.getInstance(activity).userDao().addUser(user);
+            if(!UserDatabase.getInstance(activity).userDao()
+                    .exists(user.getEmail())) {
+                UserDatabase.getInstance(activity).userDao().addUser(user);
+                Toast.makeText(activity, "Successfully registered", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(activity, "User with this email already exists", Toast.LENGTH_SHORT).show();
+            }
             Intent intent=new Intent(activity, MainActivity.class);
-            intent.putExtra("username",username.getText());
-            intent.putExtra("password",password.getText());
-            intent.putExtra("buttonVisibility", AppCompatButton.INVISIBLE);
-            Toast.makeText(activity, "Successfully registered", Toast.LENGTH_SHORT).show();
+
             startActivity(intent);
             activity.finish();
             //Intent intent=new Intent(activity,LoginFragment.class);

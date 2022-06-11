@@ -27,7 +27,9 @@ public class FavoritePlayerAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return favoritePlayersList.get(i).favoritePlayer.getId();
+        //this is useless, but needs to be implemented
+        return -1;
+        //return favoritePlayersList.get(i).favoritePlayer.getParentEmail();
     }
 
     public FavoritePlayerAdapter(List<FavoritePlayerAndUser> favoritePlayersList, Context context) {
@@ -41,15 +43,9 @@ public class FavoritePlayerAdapter extends BaseAdapter {
         view = layoutInflater.inflate(R.layout.activity_favorite_player_view, viewGroup, false);
 
         FavoritePlayer favoritePlayer = favoritePlayersList.get(position).favoritePlayer;
+        favoritePlayer.getSummonerName();
         TextView summonerNameText = view.findViewById(R.id.summonerNameText);
         TextView serverText = view.findViewById(R.id.serverText);
-        AppCompatButton deleteFavoritePlayerButton = view.findViewById(R.id.deleteFavoritePlayerButton);
-        deleteFavoritePlayerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deleteFavoritePlayer(view);
-            }
-        });
 
         summonerNameText.setText(favoritePlayer.getSummonerName());
         serverText.setText(favoritePlayer.getServer());
@@ -57,14 +53,5 @@ public class FavoritePlayerAdapter extends BaseAdapter {
         return view;
     }
 
-    public void deleteFavoritePlayer(View view){
-        FavoritePlayerDao favoritePlayerDao = UserDatabase.getInstance(view.getContext()).favoritePlayerDao();
-        TextView summonerNameText = view.findViewById(R.id.summonerNameText);
-        String summonerName = summonerNameText.getText().toString();
-        TextView serverText = view.findViewById(R.id.summonerNameText);
-        String server = serverText.getText().toString();
 
-        favoritePlayerDao.deleteFavoritePlayer(summonerName, server);
-
-    }
 }

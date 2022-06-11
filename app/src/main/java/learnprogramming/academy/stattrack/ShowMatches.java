@@ -83,7 +83,9 @@ public class ShowMatches extends AppCompatActivity {
             Toast.makeText(this, "Loading matches!", Toast.LENGTH_SHORT).show();
             jsonParse(extras.getString("URL"));
         }
+        //finish();
     }
+
 
     public void visitWebsite(View view){
         String url = visitWebsiteButton.getTag().toString();

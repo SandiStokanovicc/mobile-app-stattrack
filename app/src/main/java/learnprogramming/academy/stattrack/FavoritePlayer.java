@@ -1,5 +1,6 @@
 package learnprogramming.academy.stattrack;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -7,49 +8,41 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(
+        primaryKeys = {"summonerName", "server", "userEmail"},
         foreignKeys = {
                 @ForeignKey(
                         entity = User.class,
-                        parentColumns = {"user_id"},
-                        childColumns = {"user_id"},
+                        parentColumns = {"email"},
+                        childColumns = {"userEmail"},
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE
                 )
         }
 )
 public class FavoritePlayer {
-    //private int profileIconId;
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "favorite_player_id")
-    private long id;
-    @ColumnInfo(name = "user_id", index = true)
-    private long parentUserId;
+    @NonNull
+    @ColumnInfo(name = "userEmail", index = true)
+    private String parentEmail;
+    @NonNull
     private String summonerName;
+    @NonNull
     private String server;
 
     public FavoritePlayer(){}
 
     @Ignore
-    public FavoritePlayer(String summonerName, String server, long parentUserId){
-        this.parentUserId = parentUserId;
+    public FavoritePlayer(String summonerName, String server, String parentEmail){
+        this.parentEmail = parentEmail;
         this.summonerName = summonerName.toLowerCase();
         this.server = server;
     }
 
-    public long getId() {
-        return id;
+    public String getParentEmail() {
+        return parentEmail;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getParentUserId() {
-        return parentUserId;
-    }
-
-    public void setParentUserId(long parentUserId) {
-        this.parentUserId = parentUserId;
+    public void setParentEmail(String parentEmail) {
+        this.parentEmail = parentEmail;
     }
 
     public String getSummonerName() {

@@ -44,11 +44,14 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/deleteFavoritePlayerButton"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#714444"
         android:backgroundTint="#DC3545"
         android:fontFamily="@font/poppins_regular"
+        android:onClick="deleteFavoritePlayer"
         android:text="Delete"
         app:layout_constraintBottom_toBottomOf="@+id/serverText"
         app:layout_constraintEnd_toEndOf="parent"

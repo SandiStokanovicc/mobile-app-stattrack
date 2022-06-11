@@ -47,7 +47,7 @@ public class LoginFragment extends Fragment {
         if(user != null) {
             LoginInstanceDao loginInstanceDao = UserDatabase.getInstance(activity).loginInstanceDao();
             loginInstanceDao.addLoginInstance(new LoginInstance(user.getUsername(), user.getPassword(),
-                    user.getUser_id()));
+                    user.getEmail()));
             Intent intent=new Intent(activity, MainActivity.class);
             Toast.makeText(activity, "Successfully logged in", Toast.LENGTH_SHORT).show();
 
@@ -60,8 +60,8 @@ public class LoginFragment extends Fragment {
             activity.finish();
         }
         else {
-                Toast.makeText(activity, "Incorrect login information", Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(activity, "Incorrect login information", Toast.LENGTH_SHORT).show();
+        }
 
     }
 }
