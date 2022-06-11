@@ -6,6 +6,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,9 +42,7 @@ public class MainActivity extends AppCompatActivity {
         logoutButton = findViewById(R.id.logoutButton);
         addFavoriteButton = findViewById(R.id.add_favorite_button);
         getFavoritesButton = findViewById(R.id.favorites_button);
-        logoutButton.setVisibility(AppCompatButton.GONE);
-        addFavoriteButton.setVisibility(AppCompatButton.GONE);
-        getFavoritesButton.setVisibility(AppCompatButton.GONE);
+
 
         summonerNameInput = findViewById(R.id.summoner_name_input);
         serverSpinner = findViewById(R.id.server_spinner);
@@ -59,6 +58,21 @@ public class MainActivity extends AppCompatActivity {
             addFavoriteButton.setVisibility(extras.getInt("addFavoriteButtonVisibility"));
             getFavoritesButton.setVisibility(extras.getInt("getFavoritesButtonVisibility"));
             //loginButton.set
+
+
+//your other codes
+        }
+        SharedPreferences prefs = getSharedPreferences("name", MODE_PRIVATE);
+        boolean isLoggedIn= prefs.getBoolean("isLoggedIn", false);
+
+        if(isLoggedIn) {
+            logoutButton.setVisibility(AppCompatButton.VISIBLE);
+            addFavoriteButton.setVisibility(AppCompatButton.VISIBLE);
+            getFavoritesButton.setVisibility(AppCompatButton.VISIBLE);
+        }else {
+            logoutButton.setVisibility(AppCompatButton.GONE);
+            addFavoriteButton.setVisibility(AppCompatButton.GONE);
+            getFavoritesButton.setVisibility(AppCompatButton.GONE);
         }
 
         //loginButton.setVisibility(AppCompatButton.INVISIBLE);
@@ -67,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
         //https://docs.oracle.com/javase/7/docs/api/java/util/Calendar.html
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 12);
-        calendar.set(Calendar.MINUTE, 00);
-        calendar.set(Calendar.SECOND, 00);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
 
         if(Calendar.getInstance().after(calendar)){
             calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -96,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else{
-            Toast.makeText(MainActivity.this, "Log in to see favorite accounts", Toast.LENGTH_LONG);
+            Toast.makeText(MainActivity.this, "Log in to see favorite accounts", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -110,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             UserDatabase.getInstance(this).favoritePlayerDao().addFavoritePlayer(favoritePlayer);
         }
         else{
-            Toast.makeText(this, "This player was already added", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "This player was already added", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -131,7 +145,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logout(View view){
+        SharedPreferences.Editor editor = getSharedPreferences("name", MODE_PRIVATE).edit();
+        editor.putString("password", "");
+        editor.putString("username", "");
+        editor.putBoolean("isLoggedIn", false);
+        editor.putLong("id", -1);
+        editor.apply();
+
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
+        intent.putExtra("finish", true);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }

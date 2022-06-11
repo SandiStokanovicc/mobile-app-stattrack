@@ -2,6 +2,7 @@ package learnprogramming.academy.stattrack;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,7 @@ public class LoginFragment extends Fragment {
         if(user != null) {
             String username = user.getUsername();
             String password = user.getPassword();
+            long userId = user.getUser_id();
             Intent intent=new Intent(activity, MainActivity.class);
             intent.putExtra("username",username);
             intent.putExtra("password",password);
@@ -54,6 +56,12 @@ public class LoginFragment extends Fragment {
             intent.putExtra("getFavoritesButtonVisibility", AppCompatButton.VISIBLE);
             intent.putExtra("logoutButtonVisibility", AppCompatButton.VISIBLE);
             Toast.makeText(activity, "Successfully logged in", Toast.LENGTH_SHORT).show();
+            SharedPreferences.Editor editor = getContext().getSharedPreferences("name", getContext().MODE_PRIVATE).edit();
+            editor.putLong("id", userId);
+            editor.putString("username", username);
+            editor.putString("password", password);
+            editor.putBoolean("isLoggedIn", true);
+            editor.apply();
             startActivity(intent);
         }
         else {
