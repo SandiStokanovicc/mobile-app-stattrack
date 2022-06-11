@@ -1,6 +1,7 @@
 package learnprogramming.academy.stattrack;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -17,6 +18,9 @@ public interface FavoritePlayerDao {
 
     @Query("DELETE FROM FavoritePlayer")
     public void nukeTable();
+
+    @Query("DELETE FROM FavoritePlayer WHERE summonerName = :summonerName AND server = :server")
+    public void deleteFavoritePlayer(String summonerName, String server);
 
     @Query("SELECT * FROM FavoritePlayer INNER JOIN User ON FavoritePlayer.user_id = User.user_id WHERE User.username=(:username) and password=(:password)")
     List<FavoritePlayerAndUser> getFavoritesOfUser(String username, String password);

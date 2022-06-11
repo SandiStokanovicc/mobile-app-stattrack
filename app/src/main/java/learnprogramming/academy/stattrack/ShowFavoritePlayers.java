@@ -73,6 +73,7 @@ public class ShowFavoritePlayers extends AppCompatActivity {
     }*/
 
 
+
     public void setUpAdapter(List<FavoritePlayerAndUser> favoritePlayerList){
 
         FavoritePlayerAdapter favoritePlayerAdapter = new FavoritePlayerAdapter(favoritePlayerList, this);
