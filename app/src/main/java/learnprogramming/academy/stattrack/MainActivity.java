@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.getWindow().setBackgroundDrawableResource(R.drawable.background);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //2 lines below are for purging the DB entries
@@ -140,9 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToLogin(View view){
         Intent intent = new Intent(MainActivity.this, RegisterLoginFragActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        finish();
     }
 
     public void logout(View view){
