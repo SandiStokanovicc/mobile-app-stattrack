@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context=".MainActivity">
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background">
 
     <EditText
         android:id="@+id/summoner_name_input"
@@ -34,10 +29,10 @@
         android:layout_width="@dimen/_180sdp"
         android:layout_height="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
-        android:textColor="?android:textColorPrimary"
         android:background="#FFFFFF"
-        android:popupBackground="@color/white"
         android:fontFamily="@font/poppins_regular"
+        android:popupBackground="@color/white"
+        android:textColor="?android:textColorPrimary"
         app:layout_constraintEnd_toEndOf="@+id/summoner_name_input"
         app:layout_constraintStart_toStartOf="@+id/summoner_name_input"
         app:layout_constraintTop_toBottomOf="@+id/summoner_name_input" />
@@ -62,16 +57,16 @@
         android:id="@+id/favorites_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="21dp"
         android:background="#714444"
         android:backgroundTint="#DC3545"
         android:fontFamily="@font/poppins_regular"
         android:onClick="showFavorites"
         android:text="Favorites"
-        app:layout_constraintBottom_toTopOf="@+id/search_player_button"
-        app:layout_constraintEnd_toEndOf="@+id/search_player_button"
-        app:layout_constraintStart_toStartOf="@+id/search_player_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/summoner_name_input"
         app:layout_constraintTop_toBottomOf="@+id/findplayerId" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -156,6 +151,4 @@
         android:textSize="@dimen/_19sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>

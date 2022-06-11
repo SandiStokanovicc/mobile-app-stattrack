@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatButton;
+
 import java.util.List;
 
 public class FavoritePlayerAdapter extends BaseAdapter {
@@ -41,10 +43,28 @@ public class FavoritePlayerAdapter extends BaseAdapter {
         FavoritePlayer favoritePlayer = favoritePlayersList.get(position).favoritePlayer;
         TextView summonerNameText = view.findViewById(R.id.summonerNameText);
         TextView serverText = view.findViewById(R.id.serverText);
+        AppCompatButton deleteFavoritePlayerButton = view.findViewById(R.id.deleteFavoritePlayerButton);
+        deleteFavoritePlayerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteFavoritePlayer(view);
+            }
+        });
 
         summonerNameText.setText(favoritePlayer.getSummonerName());
         serverText.setText(favoritePlayer.getServer());
 
         return view;
+    }
+
+    public void deleteFavoritePlayer(View view){
+        FavoritePlayerDao favoritePlayerDao = UserDatabase.getInstance(view.getContext()).favoritePlayerDao();
+        TextView summonerNameText = view.findViewById(R.id.summonerNameText);
+        String summonerName = summonerNameText.getText().toString();
+        TextView serverText = view.findViewById(R.id.summonerNameText);
+        String server = serverText.getText().toString();
+
+        favoritePlayerDao.deleteFavoritePlayer(summonerName, server);
+
     }
 }
