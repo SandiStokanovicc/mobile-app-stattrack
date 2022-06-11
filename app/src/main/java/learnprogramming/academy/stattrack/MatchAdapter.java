@@ -1,6 +1,7 @@
 package learnprogramming.academy.stattrack;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import java.util.List;
 public class MatchAdapter extends BaseAdapter {
     private java.util.List<Match> matchList;
     private Context context;
+    int blue = Color.parseColor("#0D6EFD");
+    int red = Color.parseColor("#DC3545");
 
     @Override
     public int getCount() {
@@ -39,11 +42,10 @@ public class MatchAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup viewGroup) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         view = layoutInflater.inflate(R.layout.activity_match_view, viewGroup, false);
-
+        view.setBackgroundColor(red);
         Match match = matchList.get(position);
 
         ImageView championIcon = view.findViewById(R.id.championId);
-
         ImageView item0 = view.findViewById(R.id.item0ImageView);
         ImageView item1 = view.findViewById(R.id.item1ImageView);
         ImageView item2 = view.findViewById(R.id.item2ImageView);
@@ -88,7 +90,9 @@ public class MatchAdapter extends BaseAdapter {
         damageDealt.append(Integer.toString(match.getDamageDealt()));
         damageTaken.append(Integer.toString(match.getDamageTaken()));
         minionsKilled.append(Integer.toString(match.getMinionsKilled()));
-
+        if (matchResult.getText().toString().equals("Victory")){
+            view.setBackgroundColor(blue);
+        }
         return view;
     }
 

@@ -19,7 +19,7 @@ public class RegisterLoginFragActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_login_frag);
-
+        getWindow().setBackgroundDrawableResource(R.drawable.background);
         Bundle extras = getIntent().getExtras();
 
         /*

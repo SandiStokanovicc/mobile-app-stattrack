@@ -90,6 +90,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="Dmg Dealt: "
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/poppins_regular"
         app:layout_constraintStart_toStartOf="@+id/wardsPlacedText"
         app:layout_constraintTop_toBottomOf="@+id/wardsPlacedText" />
 
@@ -99,6 +101,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="Creep Score: "
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/poppins_regular"
         app:layout_constraintStart_toStartOf="@+id/totalDamageDealtText"
         app:layout_constraintTop_toBottomOf="@+id/totalDamageDealtText" />
 
@@ -109,6 +113,8 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:text="Dmg Taken: "
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/poppins_regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/minionsKilledText"
         app:layout_constraintTop_toBottomOf="@+id/minionsKilledText" />
@@ -119,6 +125,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="Wards Killed: "
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/poppins_regular"
         app:layout_constraintStart_toStartOf="@+id/controlWardsPlacedText"
         app:layout_constraintTop_toBottomOf="@+id/controlWardsPlacedText" />
 
@@ -128,6 +136,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_6sdp"
         android:text="ControlWards: "
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/poppins_regular"
         app:layout_constraintBaseline_toBaselineOf="@+id/matchResultText"
         app:layout_constraintStart_toEndOf="@+id/matchResultText" />
 
@@ -137,6 +147,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="Wards Placed: "
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/poppins_regular"
         app:layout_constraintStart_toStartOf="@+id/wardsKilledText"
         app:layout_constraintTop_toBottomOf="@+id/wardsKilledText" />
 
@@ -157,6 +169,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_12sdp"
         android:hint="Victory / Defeat"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/poppins_regular"
         app:layout_constraintStart_toEndOf="@+id/championId"
         app:layout_constraintTop_toTopOf="@+id/championId" />
 
@@ -167,6 +181,8 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:hint="K/D/A"
         android:text="K/D/A: "
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/poppins_regular"
         app:layout_constraintStart_toStartOf="@+id/matchResultText"
         app:layout_constraintTop_toBottomOf="@+id/matchResultText" />
 
@@ -176,6 +192,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="KDA: "
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/poppins_regular"
         app:layout_constraintStart_toStartOf="@+id/matchResultText"
         app:layout_constraintTop_toBottomOf="@+id/killsDeathsAssistsText" />
 

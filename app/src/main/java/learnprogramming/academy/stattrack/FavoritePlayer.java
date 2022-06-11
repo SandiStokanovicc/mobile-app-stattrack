@@ -18,6 +18,7 @@ import androidx.room.PrimaryKey;
         }
 )
 public class FavoritePlayer {
+    //private int profileIconId;
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "favorite_player_id")
     private long id;

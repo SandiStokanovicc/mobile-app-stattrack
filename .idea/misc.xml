@@ -3,6 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Shaz/Desktop/mobile-app-stattrack/app/src/main/res/layout-land/activity_match_view.xml" value="0.1" />
+        <entry key="..\:/Users/Shaz/Desktop/mobile-app-stattrack/app/src/main/res/layout/activity_favorite_player_view.xml" value="0.2259963768115942" />
+        <entry key="..\:/Users/Shaz/Desktop/mobile-app-stattrack/app/src/main/res/layout/activity_main.xml" value="0.15092592592592594" />
+        <entry key="..\:/Users/Shaz/Desktop/mobile-app-stattrack/app/src/main/res/layout/activity_match_view.xml" value="0.25" />
+        <entry key="..\:/Users/Shaz/Desktop/mobile-app-stattrack/app/src/main/res/layout/activity_register_login_frag.xml" value="0.2803442028985507" />
+        <entry key="..\:/Users/Shaz/Desktop/mobile-app-stattrack/app/src/main/res/layout/activity_show_favorite_players.xml" value="0.15092592592592594" />
+        <entry key="..\:/Users/Shaz/Desktop/mobile-app-stattrack/app/src/main/res/layout/activity_show_matches.xml" value="0.33" />
+        <entry key="..\:/Users/Shaz/Desktop/mobile-app-stattrack/app/src/main/res/layout/login_fragment_layout.xml" value="0.1" />
+        <entry key="..\:/Users/Shaz/Desktop/mobile-app-stattrack/app/src/main/res/layout/register_fragment_layout.xml" value="0.1" />
+        <entry key="..\:/Users/Shaz/Desktop/mobile-app-stattrack/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.3140625" />
         <entry key="..\:/Users/dzeni/AndroidStudioProjects/Stattrack/app/src/main/res/layout/activity_main.xml" value="0.2078804347826087" />
         <entry key="..\:/Users/dzeni/AndroidStudioProjects/Stattrack/app/src/main/res/layout/simple_spinner_item.xml" value="0.1" />
         <entry key="..\:/Users/dzeni/AndroidStudioProjects/Stattrack/mobile-app-stattrack/Project/app/src/main/res/layout-land/activity_match_view.xml" value="0.4" />
