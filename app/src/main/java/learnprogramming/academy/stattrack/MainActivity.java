@@ -116,16 +116,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addFavorite(View view){
-        String parentEmail = UserDatabase.getInstance(this).userDao().login(username, password).getEmail();
-        FavoritePlayer favoritePlayer = new FavoritePlayer(summonerNameInput.getText().toString(),
-                serverSpinner.getSelectedItem().toString(), parentEmail);
-        if(!UserDatabase.getInstance(this).favoritePlayerDao()
-                .exists(favoritePlayer.getSummonerName(), favoritePlayer.getServer(), userEmail)) {
-            UserDatabase.getInstance(this).favoritePlayerDao().addFavoritePlayer(favoritePlayer);
-            Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show();
+        if(!summonerNameInput.getText().toString().isEmpty()) { //if name was provided
+            String parentEmail = UserDatabase.getInstance(this).userDao().login(username, password).getEmail();
+            FavoritePlayer favoritePlayer = new FavoritePlayer(summonerNameInput.getText().toString(),
+                    serverSpinner.getSelectedItem().toString(), parentEmail);
+            if (!UserDatabase.getInstance(this).favoritePlayerDao() //if doesn't already exist
+                    .exists(favoritePlayer.getSummonerName(), favoritePlayer.getServer(), userEmail)) {
+                UserDatabase.getInstance(this).favoritePlayerDao().addFavoritePlayer(favoritePlayer);
+                Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "This player was already added", Toast.LENGTH_SHORT).show();
+            }
         }
         else{
-            Toast.makeText(this, "This player was already added", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Name was not provided", Toast.LENGTH_SHORT).show();
         }
     }
 
