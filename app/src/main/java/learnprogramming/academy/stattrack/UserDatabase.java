@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 //user DB instance
-@Database(entities={User.class, FavoritePlayer.class, LoginInstance.class},version=6,exportSchema = false)
+@Database(entities={User.class, FavoritePlayer.class, LoginInstance.class},version=7,exportSchema = false)
 public abstract class UserDatabase extends RoomDatabase {
 
     public abstract UserDao userDao();

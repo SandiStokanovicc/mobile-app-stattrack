@@ -16,7 +16,7 @@
 
 
         <TextView
-            android:id="@+id/RegisterToStatTrackId"
+            android:id="@+id/LoginToStatTrackId"
             android:layout_width="@dimen/_290sdp"
             android:layout_height="@dimen/_57sdp"
             android:layout_marginStart="@dimen/_12sdp"
@@ -46,7 +46,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/RegisterToStatTrackId" />
+            app:layout_constraintTop_toBottomOf="@+id/LoginToStatTrackId" />
 
         <EditText
             android:id="@+id/passwordLoginId"
@@ -68,7 +68,7 @@
             app:layout_constraintTop_toBottomOf="@+id/usernameLoginId" />
 
         <Button
-            android:id="@+id/RegisterButtonREGISTERId"
+            android:id="@+id/LoginButtonREGISTERId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/passwordLoginId"

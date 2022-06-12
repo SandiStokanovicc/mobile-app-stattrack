@@ -3,6 +3,7 @@ package learnprogramming.academy.stattrack;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -51,6 +52,7 @@ public class ShowMatches extends AppCompatActivity {
     private String summonerName;
     private String server;
     private String userEmail;
+    private String profileIconId;
     private static final String CHANNEL_ID = "notification_channel";
     private NotificationManager notifyManager;
 
@@ -63,9 +65,11 @@ public class ShowMatches extends AppCompatActivity {
         visitWebsiteButton.setVisibility(AppCompatButton.INVISIBLE);
         visitWebsiteText = findViewById(R.id.visitWebsiteText);
         visitWebsiteText.setVisibility(TextView.INVISIBLE);
+        addFavoriteButton = findViewById(R.id.add_favorite_button);
+        addFavoriteButton.setVisibility(AppCompatButton.INVISIBLE);
         matchList = new ArrayList<>();
         listView = findViewById(R.id.match_listview);
-        addFavoriteButton = findViewById(R.id.add_favorite_button);
+        hideSystemUI();
 
 
         createNotificationChannel();
@@ -77,6 +81,7 @@ public class ShowMatches extends AppCompatActivity {
             server = savedInstanceState.getString("server");
             summonerName = savedInstanceState.getString("summonerName");
             userEmail = savedInstanceState.getString("userEmail");
+            profileIconId = savedInstanceState.getString("profileIconId");
             //isPlayingAudio = savedInstanceState.getString("isPlayingAudio");
             setUpAdapter(matchList);
             visitWebsiteButton.setVisibility(AppCompatButton.VISIBLE);
@@ -179,6 +184,7 @@ public class ShowMatches extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
+        savedInstanceState.putString("profileIconId", profileIconId);
         savedInstanceState.putString("server", server);
         savedInstanceState.putString("summonerName", summonerName);
         savedInstanceState.putString("isPlayingAudio", isPlayingAudio);
@@ -199,19 +205,20 @@ public class ShowMatches extends AppCompatActivity {
 
                 JSONArray jsonArray = null;
                 try {
+                    profileIconId = responseJSON.getString("profileIconId");
                     jsonArray = responseJSON.getJSONArray("matches");
 
                     for(int i = 0; i < jsonArray.length(); i++) {
                         JSONObject matchInfo = jsonArray.getJSONObject(i);
 
                         ArrayList<String> items = new ArrayList<>();
-                        items.add("a" + matchInfo.getString("item0"));
-                        items.add("a" + matchInfo.getString("item1"));
-                        items.add("a" + matchInfo.getString("item2"));
-                        items.add("a" + matchInfo.getString("item3"));
-                        items.add("a" + matchInfo.getString("item4"));
-                        items.add("a" + matchInfo.getString("item5"));
-                        items.add("a" + matchInfo.getString("item6"));
+                        items.add("i" + matchInfo.getString("item0"));
+                        items.add("i" + matchInfo.getString("item1"));
+                        items.add("i" + matchInfo.getString("item2"));
+                        items.add("i" + matchInfo.getString("item3"));
+                        items.add("i" + matchInfo.getString("item4"));
+                        items.add("i" + matchInfo.getString("item5"));
+                        items.add("i" + matchInfo.getString("item6"));
 
                         ArrayList<String> spells = new ArrayList<>();
                         spells.add("s" + matchInfo.getString("summonerSpell1Id"));
@@ -224,9 +231,14 @@ public class ShowMatches extends AppCompatActivity {
                                 matchInfo.getInt("damageTaken"), matchInfo.getInt("minionsKilled"), items, spells);
                         matchList.add(match);
                     }
+
                     setUpAdapter(matchList);
+                    View constraintLayout = findViewById(R.id.constraintLayoutShowMatches);
+                    constraintLayout.setBackground(null);
+                    constraintLayout.setBackgroundColor(Color.parseColor("#484c54"));
                     visitWebsiteButton.setVisibility(AppCompatButton.VISIBLE);
                     visitWebsiteText.setVisibility(TextView.VISIBLE);
+                    addFavoriteButton.setVisibility(AppCompatButton.VISIBLE);
                     sendNotification("Match history", "Match history successfully loaded");
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -259,7 +271,7 @@ public class ShowMatches extends AppCompatActivity {
 
     public void addFavorite(View view){
         if(!userEmail.isEmpty()){
-            FavoritePlayer favoritePlayer = new FavoritePlayer(summonerName, server, userEmail);
+            FavoritePlayer favoritePlayer = new FavoritePlayer(summonerName, server, userEmail, profileIconId);
             //if doesn't already exist
             if (!UserDatabase.getInstance(this).favoritePlayerDao() .exists(favoritePlayer.getSummonerName(), favoritePlayer.getServer(), userEmail)) {
                         UserDatabase.getInstance(this).favoritePlayerDao().addFavoritePlayer(favoritePlayer);
@@ -271,5 +283,17 @@ public class ShowMatches extends AppCompatActivity {
         else{
             Toast.makeText(this, "Log in to add favorites", Toast.LENGTH_SHORT).show();
         }
+    }
+    public void hideSystemUI() {
+        View decorView = this.getWindow().getDecorView();
+        this.getSupportActionBar().hide();
+        int uiOptions = decorView.getSystemUiVisibility();
+        int newUiOptions = uiOptions;
+        newUiOptions |= View.SYSTEM_UI_FLAG_LOW_PROFILE;
+        newUiOptions |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        newUiOptions |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        newUiOptions |= View.SYSTEM_UI_FLAG_IMMERSIVE;
+        newUiOptions |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(newUiOptions);
     }
 }

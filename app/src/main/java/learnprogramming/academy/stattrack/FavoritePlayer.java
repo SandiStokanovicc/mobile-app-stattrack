@@ -27,14 +27,17 @@ public class FavoritePlayer {
     private String summonerName;
     @NonNull
     private String server;
+    @NonNull
+    private String profileIconId;
 
     public FavoritePlayer(){}
 
     @Ignore
-    public FavoritePlayer(String summonerName, String server, String parentEmail){
+    public FavoritePlayer(String summonerName, String server, String parentEmail, String profileIconId){
         this.parentEmail = parentEmail;
         this.summonerName = summonerName.toLowerCase();
         this.server = server;
+        this.profileIconId = profileIconId;
     }
 
     public String getParentEmail() {
@@ -43,6 +46,15 @@ public class FavoritePlayer {
 
     public void setParentEmail(String parentEmail) {
         this.parentEmail = parentEmail;
+    }
+
+    @NonNull
+    public String getProfileIconId() {
+        return profileIconId;
+    }
+
+    public void setProfileIconId(@NonNull String profileIcon) {
+        this.profileIconId = profileIcon;
     }
 
     public String getSummonerName() {

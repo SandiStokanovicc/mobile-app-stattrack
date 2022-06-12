@@ -29,6 +29,7 @@ public class ShowFavoritePlayers extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_favorite_players);
         listView = findViewById(R.id.favorite_players_listview);
+        hideSystemUI();
 
         Bundle extras = getIntent().getExtras();
         username = extras.getString("username");
@@ -104,6 +105,18 @@ public class ShowFavoritePlayers extends AppCompatActivity {
 
         FavoritePlayerAdapter favoritePlayerAdapter = new FavoritePlayerAdapter(favoritePlayerList, this);
         listView.setAdapter(favoritePlayerAdapter);
+    }
+    public void hideSystemUI() {
+        View decorView = this.getWindow().getDecorView();
+        this.getSupportActionBar().hide();
+        int uiOptions = decorView.getSystemUiVisibility();
+        int newUiOptions = uiOptions;
+        newUiOptions |= View.SYSTEM_UI_FLAG_LOW_PROFILE;
+        newUiOptions |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        newUiOptions |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        newUiOptions |= View.SYSTEM_UI_FLAG_IMMERSIVE;
+        newUiOptions |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(newUiOptions);
     }
 
 }

@@ -2,14 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayoutShowMatches"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/add_favorite_button"
-        android:layout_width="100dp"
-        android:layout_height="38dp"
+        android:layout_width="@dimen/_84sdp"
+        android:layout_height="@dimen/_30sdp"
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_12sdp"
         android:background="#714444"
@@ -25,8 +26,8 @@
         android:id="@+id/visitWebsiteText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="@dimen/_7sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
         android:fontFamily="@font/poppins_regular"
         android:text="To view full details, visit our site"
         android:textColor="#FFFFFF"
@@ -36,10 +37,10 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/visitWebsiteButton"
-        android:layout_width="72dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="@dimen/_55sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:background="#714444"
         android:backgroundTint="#DC3545"
         android:fontFamily="@font/poppins_regular"
@@ -55,9 +56,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_12sdp"
-        android:layout_marginBottom="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/visitWebsiteButton" />
+        app:layout_constraintTop_toBottomOf="@+id/visitWebsiteButton"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

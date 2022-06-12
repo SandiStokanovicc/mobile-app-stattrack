@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -42,10 +43,17 @@ public class FavoritePlayerAdapter extends BaseAdapter {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         view = layoutInflater.inflate(R.layout.activity_favorite_player_view, viewGroup, false);
 
+        ImageView profileIcon = view.findViewById(R.id.profileIconId);
+
         FavoritePlayer favoritePlayer = favoritePlayersList.get(position).favoritePlayer;
         favoritePlayer.getSummonerName();
         TextView summonerNameText = view.findViewById(R.id.summonerNameText);
         TextView serverText = view.findViewById(R.id.serverText);
+
+        String profileIconId = favoritePlayer.getProfileIconId();
+        int imageId = context.getResources().getIdentifier("p" + profileIconId, "drawable", context.getPackageName());
+        //profileIcon.setTag(profileIconName);
+        profileIcon.setImageResource(imageId);
 
         summonerNameText.setText(favoritePlayer.getSummonerName());
         serverText.setText(favoritePlayer.getServer());

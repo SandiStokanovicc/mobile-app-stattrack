@@ -3,6 +3,7 @@ package learnprogramming.academy.stattrack;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.app.ActionBar;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setBackgroundDrawableResource(R.drawable.background);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        //getActionBar().hide();
+        hideSystemUI();
+        //showSystemUI();
         //2 lines below are for purging the DB entries
         //UserDatabase.getInstance(this).userDao().nukeTable();
         //UserDatabase.getInstance(this).favoritePlayerDao().nukeTable();
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         }else {
             logoutButton.setVisibility(AppCompatButton.GONE);
             getFavoritesButton.setVisibility(AppCompatButton.GONE);
+            userEmail = "";
         }
 
         //loginButton.setVisibility(AppCompatButton.INVISIBLE);
@@ -150,11 +155,30 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-    /*
-    public void goToRegister(View view){
-        Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-        startActivity(intent);
+    public void hideSystemUI() {
+        View decorView = this.getWindow().getDecorView();
+        this.getSupportActionBar().hide();
+        int uiOptions = decorView.getSystemUiVisibility();
+        int newUiOptions = uiOptions;
+        newUiOptions |= View.SYSTEM_UI_FLAG_LOW_PROFILE;
+        newUiOptions |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        newUiOptions |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        newUiOptions |= View.SYSTEM_UI_FLAG_IMMERSIVE;
+        newUiOptions |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(newUiOptions);
     }
-    */
+
+    // not used
+    public void showSystemUI() {
+        View decorView = this.getWindow().getDecorView();
+        int uiOptions = decorView.getSystemUiVisibility();
+        int newUiOptions = uiOptions;
+        newUiOptions &= ~View.SYSTEM_UI_FLAG_LOW_PROFILE;
+        newUiOptions &= ~View.SYSTEM_UI_FLAG_FULLSCREEN;
+        newUiOptions &= ~View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        newUiOptions &= ~View.SYSTEM_UI_FLAG_IMMERSIVE;
+        newUiOptions &= ~View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(newUiOptions);
+    }
+
 }

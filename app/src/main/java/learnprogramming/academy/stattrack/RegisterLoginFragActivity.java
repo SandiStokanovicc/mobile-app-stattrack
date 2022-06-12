@@ -6,6 +6,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -20,17 +21,9 @@ public class RegisterLoginFragActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_login_frag);
         getWindow().setBackgroundDrawableResource(R.drawable.background);
+        hideSystemUI();
+
         Bundle extras = getIntent().getExtras();
-
-        /*
-        if(extras!=null){
-            Bundle bundle = new Bundle();
-            bundle.putString("edittext", "From Activity");
-            // set Fragmentclass Arguments
-            LoginFragment fragobj = new LoginFragment();
-            fragobj.setArguments(bundle);
-        }*/
-
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_bar);
         viewPager = findViewById(R.id.fragment_container);
@@ -62,4 +55,16 @@ public class RegisterLoginFragActivity extends AppCompatActivity {
             return false;
         }
     };
+    public void hideSystemUI() {
+        View decorView = this.getWindow().getDecorView();
+        this.getSupportActionBar().hide();
+        int uiOptions = decorView.getSystemUiVisibility();
+        int newUiOptions = uiOptions;
+        newUiOptions |= View.SYSTEM_UI_FLAG_LOW_PROFILE;
+        newUiOptions |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        newUiOptions |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        newUiOptions |= View.SYSTEM_UI_FLAG_IMMERSIVE;
+        newUiOptions |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        decorView.setSystemUiVisibility(newUiOptions);
+    }
 }
