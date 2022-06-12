@@ -18,7 +18,7 @@
         android:fontFamily="@font/poppins_regular"
         android:hint="Summoner Name"
         android:inputType="textPersonName"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:textColorHint="#A39D9D"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
