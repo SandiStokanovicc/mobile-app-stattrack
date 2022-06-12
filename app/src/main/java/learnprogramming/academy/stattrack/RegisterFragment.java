@@ -136,6 +136,9 @@ public class RegisterFragment extends Fragment {
             if(!UserDatabase.getInstance(activity).userDao()
                     .exists(user.getEmail())) {
                 UserDatabase.getInstance(activity).userDao().addUser(user);
+                LoginInstanceDao loginInstanceDao = UserDatabase.getInstance(activity).loginInstanceDao();
+                loginInstanceDao.addLoginInstance(new LoginInstance(user.getUsername(), user.getPassword(),
+                        user.getEmail()));
                 Toast.makeText(activity, "Successfully registered", Toast.LENGTH_SHORT).show();
             }
             else{
