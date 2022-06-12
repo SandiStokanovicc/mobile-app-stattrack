@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
+//favourite player db
 @Entity(
         primaryKeys = {"summonerName", "server", "userEmail"},
         foreignKeys = {

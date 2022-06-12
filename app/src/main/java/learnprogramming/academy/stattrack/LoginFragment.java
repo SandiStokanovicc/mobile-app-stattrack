@@ -41,7 +41,7 @@ public class LoginFragment extends Fragment {
     }
 
     public void LogIn(View v)
-    {
+    {   // verifying user data for login
         UserDao userDao=UserDatabase.getInstance(activity).userDao();
         User user = userDao.login(usernameLoginId.getText().toString(),passwordLoginId.getText().toString());
         if(user != null) {

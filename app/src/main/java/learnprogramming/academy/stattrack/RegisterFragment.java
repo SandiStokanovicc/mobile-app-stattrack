@@ -47,7 +47,7 @@ public class RegisterFragment extends Fragment {
     }
 
 
-
+    // Registration validations
     private Boolean validateUsername() {
         String validate = username.getText().toString();
         String noWhiteSpace = "\\A\\w{4,20}\\z";
@@ -126,7 +126,7 @@ public class RegisterFragment extends Fragment {
 
 
     public void setUpProfile(View view) {
-
+        //inserting user into DB
         if(!validateUsername() | !validateEmail() | !validatePassword() | !validateConfirmPassword()){
             return;
         }

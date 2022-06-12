@@ -90,7 +90,7 @@ public class MatchAdapter extends BaseAdapter {
         damageDealt.append(Integer.toString(match.getDamageDealt()));
         damageTaken.append(Integer.toString(match.getDamageTaken()));
         minionsKilled.append(Integer.toString(match.getMinionsKilled()));
-        if (matchResult.getText().toString().equals("Victory")){
+        if (matchResult.getText().toString().equals("Victory")){ //setting correct match view color
             view.setBackgroundColor(blue);
         }
         return view;
