@@ -312,7 +312,7 @@ public class ShowMatches extends AppCompatActivity {
             Toast.makeText(this, "Log in to add favorites", Toast.LENGTH_SHORT).show();
         }
     }
-    
+
     public void hideSystemUI() {
         View decorView = this.getWindow().getDecorView();
         this.getSupportActionBar().hide();

@@ -22,7 +22,7 @@
             android:name=".RegisterLoginFragActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ShowMatches"
             android:exported="false"

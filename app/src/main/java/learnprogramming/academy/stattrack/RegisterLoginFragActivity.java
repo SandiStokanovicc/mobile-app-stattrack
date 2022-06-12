@@ -23,7 +23,7 @@ public class RegisterLoginFragActivity extends AppCompatActivity {
         // prevents landscape orientation
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        // sets background programmatically to prevent picture squishing when scrolling is enabled
+        // sets background programmatically to prevent picture squishing
         getWindow().setBackgroundDrawableResource(R.drawable.background);
         hideSystemUI();
 
