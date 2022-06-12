@@ -8,8 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.AppCompatButton;
-
 import java.util.List;
 
 public class FavoritePlayerAdapter extends BaseAdapter {
@@ -28,9 +26,7 @@ public class FavoritePlayerAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        //this is useless, but needs to be implemented
         return -1;
-        //return favoritePlayersList.get(i).favoritePlayer.getParentEmail();
     }
 
     public FavoritePlayerAdapter(List<FavoritePlayerAndUser> favoritePlayersList, Context context) {
@@ -52,7 +48,6 @@ public class FavoritePlayerAdapter extends BaseAdapter {
 
         String profileIconId = favoritePlayer.getProfileIconId();
         int imageId = context.getResources().getIdentifier("p" + profileIconId, "drawable", context.getPackageName());
-        //profileIcon.setTag(profileIconName);
         profileIcon.setImageResource(imageId);
 
         summonerNameText.setText(favoritePlayer.getSummonerName());

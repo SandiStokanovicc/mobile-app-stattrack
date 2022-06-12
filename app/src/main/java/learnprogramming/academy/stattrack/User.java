@@ -1,10 +1,9 @@
 package learnprogramming.academy.stattrack;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
 //user table
 @Entity
 public class User {
@@ -13,7 +12,6 @@ public class User {
     @PrimaryKey
     private String email;
     private String password;
-
 
     public User(String username, String email, String password) {
         this.username = username;

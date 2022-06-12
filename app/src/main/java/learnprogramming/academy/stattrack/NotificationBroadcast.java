@@ -42,7 +42,6 @@ public class NotificationBroadcast extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID,
                 notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        //upitno
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         String tipOfTheDay = selectTipOfTheDay();
@@ -56,8 +55,6 @@ public class NotificationBroadcast extends BroadcastReceiver {
                 .setVibrate(new long[]{1000,1000,1000,1000,1000})
                 .setAutoCancel(true);
 
-        //
-
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(PRIMARY_CHANNEL_ID,
                     "Tips / hints notification", NotificationManager.IMPORTANCE_DEFAULT);
@@ -68,9 +65,7 @@ public class NotificationBroadcast extends BroadcastReceiver {
 
             notificationManager.createNotificationChannel(notificationChannel);
         }
-        //
         notificationManager.notify(NOTIFICATION_ID, builder.build());
-        //NOTIFICATION_ID++;
 
     }
 

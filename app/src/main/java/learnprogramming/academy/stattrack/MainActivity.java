@@ -2,12 +2,9 @@ package learnprogramming.academy.stattrack;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-
-import android.app.ActionBar;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,9 +35,8 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setBackgroundDrawableResource(R.drawable.background);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        //getActionBar().hide();
         hideSystemUI();
-        //showSystemUI();
+
         //2 lines below are for purging the DB entries
         //UserDatabase.getInstance(this).userDao().nukeTable();
         //UserDatabase.getInstance(this).favoritePlayerDao().nukeTable();
@@ -58,16 +54,10 @@ public class MainActivity extends AppCompatActivity {
         loginInstance = loginInstanceDao.checkIfLoggedIn();
 
 
-
-
         if(loginInstance != null) {
             username = loginInstance.getUsername();
             password = loginInstance.getPassword();
             userEmail = loginInstance.getEmail();
-
-            Log.d("MainActivitylol: ", loginInstance.getPassword());
-            Log.d("MainActivitylol: ", loginInstance.getUsername());
-            Log.d("MainActivitylol: ", loginInstance.getEmail());
 
             logoutButton.setVisibility(AppCompatButton.VISIBLE);
             loginButton.setVisibility(AppCompatButton.GONE);
@@ -77,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
             getFavoritesButton.setVisibility(AppCompatButton.GONE);
             userEmail = "";
         }
-
-        //loginButton.setVisibility(AppCompatButton.INVISIBLE);
 
 
         //https://docs.oracle.com/javase/7/docs/api/java/util/Calendar.html
@@ -119,17 +107,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getMatchHistory(View view){
-        //ovdje radi
-
-        //String url = "https://" + serverSpinner.getSelectedItem().toString() +
-                //".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + summonerNameInput.getText().toString();
-
         if(!userEmail.isEmpty()) {
             Intent intent = new Intent(MainActivity.this, ShowMatches.class);
             intent.putExtra("summonerName", summonerNameInput.getText().toString());
             intent.putExtra("server", serverSpinner.getSelectedItem().toString());
             intent.putExtra("userEmail", userEmail);
-            //intent.putExtra("URL", url);
             startActivity(intent);
         }
         else{
@@ -137,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("summonerName", summonerNameInput.getText().toString());
             intent.putExtra("server", serverSpinner.getSelectedItem().toString());
             intent.putExtra("userEmail", "");
-            //intent.putExtra("URL", url);
             startActivity(intent);
         }
     }
@@ -168,17 +149,5 @@ public class MainActivity extends AppCompatActivity {
         decorView.setSystemUiVisibility(newUiOptions);
     }
 
-    // not used
-    public void showSystemUI() {
-        View decorView = this.getWindow().getDecorView();
-        int uiOptions = decorView.getSystemUiVisibility();
-        int newUiOptions = uiOptions;
-        newUiOptions &= ~View.SYSTEM_UI_FLAG_LOW_PROFILE;
-        newUiOptions &= ~View.SYSTEM_UI_FLAG_FULLSCREEN;
-        newUiOptions &= ~View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-        newUiOptions &= ~View.SYSTEM_UI_FLAG_IMMERSIVE;
-        newUiOptions &= ~View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        decorView.setSystemUiVisibility(newUiOptions);
-    }
 
 }

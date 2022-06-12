@@ -19,8 +19,4 @@ public interface UserDao {
     @Query("SELECT EXISTS (SELECT 1 FROM User WHERE email = :email)")
     Boolean exists(String email);
 
-    //@Query("SELECT User.user_id FROM User WHERE username=(:username) and password=(:password)")
-    //User getUserIdDB(String username,String password);
-
-
 }

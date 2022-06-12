@@ -100,24 +100,24 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_regular"
         android:text="Creep Score: "
         android:textColor="#FFFFFF"
-        android:fontFamily="@font/poppins_regular"
-        app:layout_constraintStart_toStartOf="@+id/totalDamageDealtText"
-        app:layout_constraintTop_toBottomOf="@+id/totalDamageDealtText" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/totalDamageTakenText"
+        app:layout_constraintTop_toBottomOf="@+id/totalDamageTakenText" />
 
     <TextView
         android:id="@+id/totalDamageTakenText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_regular"
         android:text="Dmg Taken: "
         android:textColor="#FFFFFF"
-        android:fontFamily="@font/poppins_regular"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/minionsKilledText"
-        app:layout_constraintTop_toBottomOf="@+id/minionsKilledText" />
+        app:layout_constraintStart_toStartOf="@+id/totalDamageDealtText"
+        app:layout_constraintTop_toBottomOf="@+id/totalDamageDealtText" />
 
     <TextView
         android:id="@+id/wardsKilledText"

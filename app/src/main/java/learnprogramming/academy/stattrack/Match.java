@@ -2,8 +2,6 @@ package learnprogramming.academy.stattrack;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 

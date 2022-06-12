@@ -3,7 +3,7 @@ package learnprogramming.academy.stattrack;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
-
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,10 +20,9 @@ public class RegisterLoginFragActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_login_frag);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getWindow().setBackgroundDrawableResource(R.drawable.background);
         hideSystemUI();
-
-        Bundle extras = getIntent().getExtras();
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_bar);
         viewPager = findViewById(R.id.fragment_container);

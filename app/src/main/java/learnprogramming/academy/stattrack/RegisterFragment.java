@@ -2,9 +2,7 @@ package learnprogramming.academy.stattrack;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 public class RegisterFragment extends Fragment {
@@ -148,15 +145,6 @@ public class RegisterFragment extends Fragment {
 
             startActivity(intent);
             activity.finish();
-            //Intent intent=new Intent(activity,LoginFragment.class);
-            //intent.putExtra("profilePhoto",profilePhoto);
-            //startActivity(intent);
-            //Intent intent2 = new Intent(activity, LoginFragment.class);
-            //startActivity(intent2);
         }
-
     }
-
-
-
 }

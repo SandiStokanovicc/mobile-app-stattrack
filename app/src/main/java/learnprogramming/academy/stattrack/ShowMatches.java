@@ -3,8 +3,6 @@ package learnprogramming.academy.stattrack;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
-
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -15,24 +13,19 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -71,7 +64,6 @@ public class ShowMatches extends AppCompatActivity {
         listView = findViewById(R.id.match_listview);
         hideSystemUI();
 
-
         createNotificationChannel();
         isPlayingAudio = "false";
 
@@ -82,19 +74,17 @@ public class ShowMatches extends AppCompatActivity {
             summonerName = savedInstanceState.getString("summonerName");
             userEmail = savedInstanceState.getString("userEmail");
             profileIconId = savedInstanceState.getString("profileIconId");
-            //isPlayingAudio = savedInstanceState.getString("isPlayingAudio");
             setUpAdapter(matchList);
             visitWebsiteButton.setVisibility(AppCompatButton.VISIBLE);
             visitWebsiteText.setVisibility(TextView.VISIBLE);
+            addFavoriteButton.setVisibility(AppCompatButton.VISIBLE);
         }
         else {
 
-            apiRequestQueue = Volley.newRequestQueue(this); // moguce da ce se ovo morati promijeniti kad se promjeni activity
+            apiRequestQueue = Volley.newRequestQueue(this);
 
             Bundle extras = getIntent().getExtras();
 
-
-            Log.d(extras.getString("URL"), "onCreate: ");
             Toast.makeText(this, "Loading matches!", Toast.LENGTH_SHORT).show();
             userEmail = extras.getString("userEmail");
             summonerName = extras.getString("summonerName");
@@ -102,7 +92,9 @@ public class ShowMatches extends AppCompatActivity {
             String url = "https://stattrack.me/rest/summonersMobileAPI/" + summonerName + "/" + server;
             jsonParseMatches(url);
         }
-        //finish();
+        View constraintLayout = findViewById(R.id.constraintLayoutShowMatches);
+        constraintLayout.setBackground(null);
+        constraintLayout.setBackgroundColor(Color.parseColor("#484c54"));
     }
 
 
@@ -138,7 +130,6 @@ public class ShowMatches extends AppCompatActivity {
             });
         }
         else if(isPlayingAudio == "true"){
-            //mediaPlayer.reset();
             mediaPlayer.release();
         }
     }
@@ -157,7 +148,6 @@ public class ShowMatches extends AppCompatActivity {
                 .setSmallIcon(R.drawable.background)
                 .setContentTitle(title)
                 .setContentText(text)
-                //.setContentIntent(pendingNotificationIntent)
                 .setAutoCancel(true);
 
         return notifyBuilder;
@@ -233,9 +223,6 @@ public class ShowMatches extends AppCompatActivity {
                     }
 
                     setUpAdapter(matchList);
-                    View constraintLayout = findViewById(R.id.constraintLayoutShowMatches);
-                    constraintLayout.setBackground(null);
-                    constraintLayout.setBackgroundColor(Color.parseColor("#484c54"));
                     visitWebsiteButton.setVisibility(AppCompatButton.VISIBLE);
                     visitWebsiteText.setVisibility(TextView.VISIBLE);
                     addFavoriteButton.setVisibility(AppCompatButton.VISIBLE);

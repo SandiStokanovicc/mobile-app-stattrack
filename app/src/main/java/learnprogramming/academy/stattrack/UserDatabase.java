@@ -1,10 +1,10 @@
 package learnprogramming.academy.stattrack;
 
 import android.content.Context;
-
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+
 //user DB instance
 @Database(entities={User.class, FavoritePlayer.class, LoginInstance.class},version=7,exportSchema = false)
 public abstract class UserDatabase extends RoomDatabase {

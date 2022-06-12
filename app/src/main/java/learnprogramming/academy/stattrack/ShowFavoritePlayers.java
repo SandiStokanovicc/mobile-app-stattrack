@@ -1,21 +1,15 @@
 package learnprogramming.academy.stattrack;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-
 import android.content.Intent;
-import android.media.MediaPlayer;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShowFavoritePlayers extends AppCompatActivity {
@@ -28,6 +22,7 @@ public class ShowFavoritePlayers extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_favorite_players);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         listView = findViewById(R.id.favorite_players_listview);
         hideSystemUI();
 
@@ -37,21 +32,14 @@ public class ShowFavoritePlayers extends AppCompatActivity {
 
         FavoritePlayerDao favoritePlayerDao=UserDatabase.getInstance(this).favoritePlayerDao();
         favoritePlayerList = favoritePlayerDao.getFavoritesOfUser(extras.getString("username"), extras.getString("password"));
-        if(favoritePlayerList != null) {
+        if(favoritePlayerList.size() > 0) {
             setUpAdapter(favoritePlayerList);
         }
         else {
-            Toast.makeText(this, "Incorrect login information", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No favorites found", Toast.LENGTH_SHORT).show();
+            finish();
         }
 
-
-        /* //dodati ako mi ne bude mrsko
-        if (savedInstanceState != null){
-            favoritePlayerList = savedInstanceState.getParcelableArrayList("favorite_players_list");
-            //isPlayingAudio = savedInstanceState.getString("isPlayingAudio");
-            setUpAdapter(favoritePlayerList);
-        }
-        */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
@@ -67,14 +55,6 @@ public class ShowFavoritePlayers extends AppCompatActivity {
         });
 
     }
-
-    /* //dodati ako mi ne bude mrsko
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-
-        savedInstanceState.putParcelableArrayList("favorite_players_list", (ArrayList<? extends Parcelable>) favoritePlayerList);
-    }*/
 
     public void deleteFavoritePlayer(View view){
         LoginInstanceDao loginInstanceDao = UserDatabase.getInstance(this).loginInstanceDao();
