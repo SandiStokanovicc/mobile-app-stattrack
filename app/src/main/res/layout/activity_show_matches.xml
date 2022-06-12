@@ -6,31 +6,48 @@
     android:layout_height="match_parent"
     android:background="@drawable/background">
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_favorite_button"
+        android:layout_width="100dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:background="#714444"
+        android:backgroundTint="#DC3545"
+        android:fontFamily="@font/poppins_regular"
+        android:onClick="addFavorite"
+        android:text="Add to Favorites"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/visitWebsiteText"
+        app:layout_constraintTop_toTopOf="@+id/visitWebsiteText" />
+
     <TextView
         android:id="@+id/visitWebsiteText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/poppins_regular"
         android:text="To view full details, visit our site"
-        app:layout_constraintBottom_toBottomOf="@+id/visitWebsiteButton"
-        app:layout_constraintEnd_toStartOf="@+id/visitWebsiteButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/add_favorite_button"
+        app:layout_constraintStart_toEndOf="@+id/visitWebsiteButton"
         app:layout_constraintTop_toTopOf="@+id/visitWebsiteButton" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/visitWebsiteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_width="72dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:background="#714444"
         android:backgroundTint="#DC3545"
         android:fontFamily="@font/poppins_regular"
         android:onClick="visitWebsite"
         android:tag="https://stattrack.me"
         android:text="Website"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/visitWebsiteText"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
@@ -38,7 +55,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_12sdp"
-        android:layout_marginBottom="@dimen/_16sdp"
+        android:layout_marginBottom="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

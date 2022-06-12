@@ -45,7 +45,12 @@ public class ShowMatches extends AppCompatActivity {
     public static String isPlayingAudio;
     public AppCompatButton visitWebsiteButton;
     public TextView visitWebsiteText;
+    public AppCompatButton addFavoriteButton;
 
+
+    private String summonerName;
+    private String server;
+    private String userEmail;
     private static final String CHANNEL_ID = "notification_channel";
     private NotificationManager notifyManager;
 
@@ -60,6 +65,8 @@ public class ShowMatches extends AppCompatActivity {
         visitWebsiteText.setVisibility(TextView.INVISIBLE);
         matchList = new ArrayList<>();
         listView = findViewById(R.id.match_listview);
+        addFavoriteButton = findViewById(R.id.add_favorite_button);
+
 
         createNotificationChannel();
         isPlayingAudio = "false";
@@ -67,6 +74,9 @@ public class ShowMatches extends AppCompatActivity {
 
         if (savedInstanceState != null){
             matchList = savedInstanceState.getParcelableArrayList("match_list");
+            server = savedInstanceState.getString("server");
+            summonerName = savedInstanceState.getString("summonerName");
+            userEmail = savedInstanceState.getString("userEmail");
             //isPlayingAudio = savedInstanceState.getString("isPlayingAudio");
             setUpAdapter(matchList);
             visitWebsiteButton.setVisibility(AppCompatButton.VISIBLE);
@@ -81,7 +91,11 @@ public class ShowMatches extends AppCompatActivity {
 
             Log.d(extras.getString("URL"), "onCreate: ");
             Toast.makeText(this, "Loading matches!", Toast.LENGTH_SHORT).show();
-            jsonParse(extras.getString("URL"));
+            userEmail = extras.getString("userEmail");
+            summonerName = extras.getString("summonerName");
+            server = extras.getString("server");
+            String url = "https://stattrack.me/rest/summonersMobileAPI/" + summonerName + "/" + server;
+            jsonParseMatches(url);
         }
         //finish();
     }
@@ -161,12 +175,12 @@ public class ShowMatches extends AppCompatActivity {
 
     }
 
-//username
-    //bruh123lol
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
+        savedInstanceState.putString("server", server);
+        savedInstanceState.putString("summonerName", summonerName);
         savedInstanceState.putString("isPlayingAudio", isPlayingAudio);
         savedInstanceState.putParcelableArrayList("match_list", (ArrayList<? extends Parcelable>) matchList);
     }
@@ -177,7 +191,7 @@ public class ShowMatches extends AppCompatActivity {
         listView.setAdapter(matchAdapter);
     }
 
-    public void jsonParse(String url){
+    public void jsonParseMatches(String url){
         //if it's a JSON array, we will need a JsonArrayRequest
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -241,5 +255,21 @@ public class ShowMatches extends AppCompatActivity {
             }
         });
         apiRequestQueue.add(request);
+    }
+
+    public void addFavorite(View view){
+        if(!userEmail.isEmpty()){
+            FavoritePlayer favoritePlayer = new FavoritePlayer(summonerName, server, userEmail);
+            //if doesn't already exist
+            if (!UserDatabase.getInstance(this).favoritePlayerDao() .exists(favoritePlayer.getSummonerName(), favoritePlayer.getServer(), userEmail)) {
+                        UserDatabase.getInstance(this).favoritePlayerDao().addFavoritePlayer(favoritePlayer);
+                        Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "This player was already added", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else{
+            Toast.makeText(this, "Log in to add favorites", Toast.LENGTH_SHORT).show();
+        }
     }
 }

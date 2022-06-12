@@ -22,7 +22,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
     public EditText summonerNameInput;
     public Spinner serverSpinner;
-    public AppCompatButton loginButton, logoutButton, addFavoriteButton, getFavoritesButton;
+    public AppCompatButton loginButton, logoutButton, getFavoritesButton;
     private LoginInstanceDao loginInstanceDao;
     private LoginInstance loginInstance;
     private String username;
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         loginButton = findViewById(R.id.loginButton);
         logoutButton = findViewById(R.id.logoutButton);
-        addFavoriteButton = findViewById(R.id.add_favorite_button);
+
         getFavoritesButton = findViewById(R.id.favorites_button);
 
 
@@ -67,11 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
             logoutButton.setVisibility(AppCompatButton.VISIBLE);
             loginButton.setVisibility(AppCompatButton.GONE);
-            addFavoriteButton.setVisibility(AppCompatButton.VISIBLE);
             getFavoritesButton.setVisibility(AppCompatButton.VISIBLE);
         }else {
             logoutButton.setVisibility(AppCompatButton.GONE);
-            addFavoriteButton.setVisibility(AppCompatButton.GONE);
             getFavoritesButton.setVisibility(AppCompatButton.GONE);
         }
 
@@ -115,33 +113,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void addFavorite(View view){
-        if(!summonerNameInput.getText().toString().isEmpty()) { //if name was provided
-            String parentEmail = UserDatabase.getInstance(this).userDao().login(username, password).getEmail();
-            FavoritePlayer favoritePlayer = new FavoritePlayer(summonerNameInput.getText().toString(),
-                    serverSpinner.getSelectedItem().toString(), parentEmail);
-            if (!UserDatabase.getInstance(this).favoritePlayerDao() //if doesn't already exist
-                    .exists(favoritePlayer.getSummonerName(), favoritePlayer.getServer(), userEmail)) {
-                UserDatabase.getInstance(this).favoritePlayerDao().addFavoritePlayer(favoritePlayer);
-                Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "This player was already added", Toast.LENGTH_SHORT).show();
-            }
-        }
-        else{
-            Toast.makeText(this, "Name was not provided", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void jsonParse(View view){
+    public void getMatchHistory(View view){
         //ovdje radi
-        String url = "https://stattrack.me/rest/summonersMobileAPI/" + summonerNameInput.getText().toString() + "/" + serverSpinner.getSelectedItem().toString();
+
         //String url = "https://" + serverSpinner.getSelectedItem().toString() +
                 //".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + summonerNameInput.getText().toString();
 
-        Intent intent = new Intent(MainActivity.this, ShowMatches.class);
-        intent.putExtra("URL", url);
-        startActivity(intent);
+        if(!userEmail.isEmpty()) {
+            Intent intent = new Intent(MainActivity.this, ShowMatches.class);
+            intent.putExtra("summonerName", summonerNameInput.getText().toString());
+            intent.putExtra("server", serverSpinner.getSelectedItem().toString());
+            intent.putExtra("userEmail", userEmail);
+            //intent.putExtra("URL", url);
+            startActivity(intent);
+        }
+        else{
+            Intent intent = new Intent(MainActivity.this, ShowMatches.class);
+            intent.putExtra("summonerName", summonerNameInput.getText().toString());
+            intent.putExtra("server", serverSpinner.getSelectedItem().toString());
+            intent.putExtra("userEmail", "");
+            //intent.putExtra("URL", url);
+            startActivity(intent);
+        }
     }
 
     public void goToLogin(View view){

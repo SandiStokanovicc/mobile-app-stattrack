@@ -57,12 +57,9 @@ public class ShowFavoritePlayers extends AppCompatActivity {
                 FavoritePlayerAndUser favoritePlayerParent = (FavoritePlayerAndUser) parent.getItemAtPosition(position);
                 FavoritePlayer favoritePlayer = favoritePlayerParent.favoritePlayer;
 
-                String url = "https://stattrack.me/rest/summonersMobileAPI/" + favoritePlayer.getSummonerName() + "/" + favoritePlayer.getServer();
-                //String url = "https://" + serverSpinner.getSelectedItem().toString() +
-                //".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + summonerNameInput.getText().toString();
-
                 Intent intent = new Intent(ShowFavoritePlayers.this, ShowMatches.class);
-                intent.putExtra("URL", url);
+                intent.putExtra("summonerName", favoritePlayer.getSummonerName());
+                intent.putExtra("server", favoritePlayer.getServer());
                 startActivity(intent);
 
             }
