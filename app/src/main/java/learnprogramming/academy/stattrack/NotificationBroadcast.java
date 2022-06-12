@@ -1,12 +1,16 @@
 package learnprogramming.academy.stattrack;
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
+
 import androidx.core.app.NotificationCompat;
 
 import java.util.Random;
@@ -53,7 +57,7 @@ public class NotificationBroadcast extends BroadcastReceiver {
                 .setAutoCancel(true);
 
         //
-        /*
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(PRIMARY_CHANNEL_ID,
                     "Tips / hints notification", NotificationManager.IMPORTANCE_DEFAULT);
@@ -63,7 +67,7 @@ public class NotificationBroadcast extends BroadcastReceiver {
             notificationChannel.setDescription("This is my notification!"); //OVO PROMIJENITI
 
             notificationManager.createNotificationChannel(notificationChannel);
-        }*/
+        }
         //
         notificationManager.notify(NOTIFICATION_ID, builder.build());
         //NOTIFICATION_ID++;
