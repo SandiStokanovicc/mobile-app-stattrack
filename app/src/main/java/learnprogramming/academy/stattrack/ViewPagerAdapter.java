@@ -9,6 +9,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+// used for setting up login / register fragments
 public class ViewPagerAdapter extends FragmentStateAdapter {
 
     private List<Fragment> fragmentList = new ArrayList<>();

@@ -151,7 +151,7 @@
         android:layout_height="@dimen/_77sdp"
         android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_12sdp"
-        android:onClick="buttonTapped"
+        android:onClick="playVoicelineOnIconTap"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/background" />

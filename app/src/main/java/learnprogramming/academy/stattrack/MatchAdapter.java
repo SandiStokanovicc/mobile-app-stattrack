@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+// used for filling up ListView for matches (display matches)
 public class MatchAdapter extends BaseAdapter {
     private java.util.List<Match> matchList;
     private Context context;
@@ -68,7 +69,6 @@ public class MatchAdapter extends BaseAdapter {
         imageViews.add(spell1);
         imageViews.add(spell2);
 
-
         setIcons(match, imageViews);
 
         TextView matchResult = view.findViewById(R.id.matchResultText);
@@ -90,17 +90,23 @@ public class MatchAdapter extends BaseAdapter {
         damageDealt.append(Integer.toString(match.getDamageDealt()));
         damageTaken.append(Integer.toString(match.getDamageTaken()));
         minionsKilled.append(Integer.toString(match.getMinionsKilled()));
+
         if (matchResult.getText().toString().equals("Victory")){ //setting correct match view color
             view.setBackgroundColor(blue);
         }
+
         return view;
     }
 
+    // populates all ImageViews with images (champion icon -> 0, items -> 1-6, summoner spells -> 8-9)
     private void setIcons(Match match, ArrayList<ImageView> imageViews){
         String iconName = match.getChampionIcon().toLowerCase();
+        // gets imageId (corresponding android int value) based on champ name
         int imageId = context.getResources().getIdentifier(iconName, "drawable", context.getPackageName());
 
+        // sets image based on previously retrieved imageId
         imageViews.get(0).setImageResource(imageId);
+        // sets tag which is later used to extract file for voiceline based on name (example: vayne.ogg)
         imageViews.get(0).setTag(iconName);
 
         iconName = match.getItems().get(0);

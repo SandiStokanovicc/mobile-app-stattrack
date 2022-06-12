@@ -64,10 +64,13 @@ public class ShowMatches extends AppCompatActivity {
         listView = findViewById(R.id.match_listview);
         hideSystemUI();
 
+        // needed for sending notification when match gets loaded
         createNotificationChannel();
+
+        // used to prevent sound overlapping (mostly)
         isPlayingAudio = "false";
 
-
+        // retrieves data upon screen rotation / minimize, etc, etc.
         if (savedInstanceState != null){
             matchList = savedInstanceState.getParcelableArrayList("match_list");
             server = savedInstanceState.getString("server");
@@ -79,44 +82,58 @@ public class ShowMatches extends AppCompatActivity {
             visitWebsiteText.setVisibility(TextView.VISIBLE);
             addFavoriteButton.setVisibility(AppCompatButton.VISIBLE);
         }
-        else {
 
+        // makes an API call to fetch match history if there is no saved data (activity opened for the first time)
+        else {
             apiRequestQueue = Volley.newRequestQueue(this);
 
             Bundle extras = getIntent().getExtras();
 
             Toast.makeText(this, "Loading matches!", Toast.LENGTH_SHORT).show();
+
             userEmail = extras.getString("userEmail");
             summonerName = extras.getString("summonerName");
             server = extras.getString("server");
             String url = "https://stattrack.me/rest/summonersMobileAPI/" + summonerName + "/" + server;
+
+            // fetches match history from API
             jsonParseMatches(url);
         }
+
+        // removes background and sets background color to gray when matches finish loading
         View constraintLayout = findViewById(R.id.constraintLayoutShowMatches);
         constraintLayout.setBackground(null);
         constraintLayout.setBackgroundColor(Color.parseColor("#484c54"));
     }
 
-
+    // uses implicit intent to send the user to our website upon button clicked
     public void visitWebsite(View view){
         String url = visitWebsiteButton.getTag().toString();
 
         Uri website = Uri.parse(url);
         Intent implicitIntent = new Intent(Intent.ACTION_VIEW, website);
 
+        // if an app (browser) is able to handle the intent (open our website), start the activity
         if(implicitIntent.resolveActivity(getPackageManager()) != null){
             startActivity(implicitIntent);
         }
+        // else throw an error
         else{
             Toast.makeText(ShowMatches.this, "Unable to open website",
                     Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void buttonTapped(View view) {
+    public void playVoicelineOnIconTap(View view) {
+
+        // retrieves filename based on tag (similar to hint on TextView, just not visible) which was set to the Champion Image
         String audioFileName = String.valueOf(view.getTag());
+        // gets Android ID for the audio file
         int resourceId = getResources().getIdentifier(audioFileName, "raw", this.getPackageName());
+        // creates MediaPlayer which is used for starting / stopping sounds
         MediaPlayer mediaPlayer = MediaPlayer.create(this, resourceId);
+
+        // plays voiceline if one isn't playing already (buggy on rotation due to onCompletion not finishing when the screen rotates)
         if (isPlayingAudio == "false") {
             isPlayingAudio = "true";
             mediaPlayer.start();
@@ -125,20 +142,23 @@ public class ShowMatches extends AppCompatActivity {
                 public void onCompletion(MediaPlayer mp) {
                     isPlayingAudio = "false";
                     mp.reset();
-                    mp.release();
+                    mp.release(); // destroys the MediaPlayer to prevent MediaPlayer crashes
                 }
             });
         }
+        // doesn't play audio if there is some already playing and destroys the MediaPlayer to prevent MediaPlayer crashes
         else if(isPlayingAudio == "true"){
             mediaPlayer.release();
         }
     }
 
+    // sends notification when matches finish loading
     public void sendNotification(String title, String text){
         NotificationCompat.Builder notifyBuilder = getNotificationBuilder(title, text);
         notifyManager.notify(1, notifyBuilder.build());
     }
 
+    // used for sending notification
     private NotificationCompat.Builder getNotificationBuilder(String title, String text){
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingNotificationIntent = PendingIntent.getActivity(this, 1,
@@ -153,6 +173,7 @@ public class ShowMatches extends AppCompatActivity {
         return notifyBuilder;
     }
 
+    // makes sure the notification can be activated properly (it won't appear if there is not channel for it)
     public void createNotificationChannel(){
         notifyManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -165,11 +186,9 @@ public class ShowMatches extends AppCompatActivity {
 
             notifyManager.createNotificationChannel(notificationChannel);
         }
-
-
-
     }
 
+    // saves data upon screen rotation / minimize, etc, etc.
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
@@ -181,12 +200,13 @@ public class ShowMatches extends AppCompatActivity {
         savedInstanceState.putParcelableArrayList("match_list", (ArrayList<? extends Parcelable>) matchList);
     }
 
+    // sets up each match into the ListView
     public void setUpAdapter(List<Match> matchList){
-
         MatchAdapter matchAdapter = new MatchAdapter(matchList, this);
         listView.setAdapter(matchAdapter);
     }
 
+    // main method for making the API request to our website which grabs information for displaying
     public void jsonParseMatches(String url){
         //if it's a JSON array, we will need a JsonArrayRequest
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -202,6 +222,8 @@ public class ShowMatches extends AppCompatActivity {
                         JSONObject matchInfo = jsonArray.getJSONObject(i);
 
                         ArrayList<String> items = new ArrayList<>();
+                        // adds "i" to itemIds to match drawable names (android studio prevents numbers for image names,
+                        // letter on position 0 required)
                         items.add("i" + matchInfo.getString("item0"));
                         items.add("i" + matchInfo.getString("item1"));
                         items.add("i" + matchInfo.getString("item2"));
@@ -211,6 +233,7 @@ public class ShowMatches extends AppCompatActivity {
                         items.add("i" + matchInfo.getString("item6"));
 
                         ArrayList<String> spells = new ArrayList<>();
+                        // same principle for summoner spells as for items (i = item, s = spell)
                         spells.add("s" + matchInfo.getString("summonerSpell1Id"));
                         spells.add("s" + matchInfo.getString("summonerSpell2Id"));
 
@@ -223,11 +246,16 @@ public class ShowMatches extends AppCompatActivity {
                     }
 
                     setUpAdapter(matchList);
+
+                    // when matches finish loading, show the text and buttons on top (enhance user experience)
                     visitWebsiteButton.setVisibility(AppCompatButton.VISIBLE);
                     visitWebsiteText.setVisibility(TextView.VISIBLE);
                     addFavoriteButton.setVisibility(AppCompatButton.VISIBLE);
+
+                    // send notificaitons when matches finish loading
                     sendNotification("Match history", "Match history successfully loaded");
                 } catch (JSONException e) {
+                    // ErrorListener below does all the work, this just needs to be here due to try-catch
                     e.printStackTrace();
                 }
             }
@@ -236,41 +264,55 @@ public class ShowMatches extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Writer writer = new StringWriter();
+
+                // prints errors to Logcat
                 error.printStackTrace(new PrintWriter(writer));
+
+                // grabs part of error message
                 String errorMessage = writer.toString();
 
+                // checks for 403 error (API key expired)
                 if (errorMessage.contains("AuthFailureError"))
                     Toast.makeText(ShowMatches.this, "API key needs to be changed",
                             Toast.LENGTH_LONG).show();
 
+                // checks for 404 error (User Not Found unless original website changes route)
                 else if(errorMessage.contains("ClientError"))
                     Toast.makeText(ShowMatches.this, "No such user found",
                             Toast.LENGTH_LONG).show();
 
-                sendNotification("Match history", "Match history could not be loaded");
-                error.printStackTrace();
-                Intent intent = new Intent(ShowMatches.this, MainActivity.class);
-                startActivity(intent);
+                    sendNotification("Match history", "Match history could not be loaded");
+                    error.printStackTrace();
+                    Intent intent = new Intent(ShowMatches.this, MainActivity.class);
+                    startActivity(intent);
             }
         });
+        // add request to queue, ready for executing
         apiRequestQueue.add(request);
     }
 
+    // add currently searched player to user's favorites
     public void addFavorite(View view){
+
+        // if user is logged in, start adding to fav process
         if(!userEmail.isEmpty()){
             FavoritePlayer favoritePlayer = new FavoritePlayer(summonerName, server, userEmail, profileIconId);
-            //if doesn't already exist
+
+            //if selected player isn't already a favorite, add to favorites
             if (!UserDatabase.getInstance(this).favoritePlayerDao() .exists(favoritePlayer.getSummonerName(), favoritePlayer.getServer(), userEmail)) {
                         UserDatabase.getInstance(this).favoritePlayerDao().addFavoritePlayer(favoritePlayer);
                         Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show();
-            } else {
+            } // selected player is already a favorite
+            else {
                 Toast.makeText(this, "This player was already added", Toast.LENGTH_SHORT).show();
             }
         }
+        // user isn't logged in
         else{
             Toast.makeText(this, "Log in to add favorites", Toast.LENGTH_SHORT).show();
         }
     }
+    
     public void hideSystemUI() {
         View decorView = this.getWindow().getDecorView();
         this.getSupportActionBar().hide();

@@ -7,7 +7,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -20,7 +19,11 @@ public class RegisterLoginFragActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_login_frag);
+
+        // prevents landscape orientation
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        // sets background programmatically to prevent picture squishing when scrolling is enabled
         getWindow().setBackgroundDrawableResource(R.drawable.background);
         hideSystemUI();
 
@@ -31,15 +34,20 @@ public class RegisterLoginFragActivity extends AppCompatActivity {
         setUpAdapter(viewPager);
     }
 
+    // adds fragments to ViewPager2
     public void setUpAdapter(ViewPager2 viewPager){
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), getLifecycle());
         viewPagerAdapter.addFragment(new LoginFragment());
         viewPagerAdapter.addFragment(new RegisterFragment());
+
+        // prevents the user from changing which fragment is selected by scrolling left / right
         viewPager.setUserInputEnabled(false);
 
         viewPager.setAdapter(viewPagerAdapter);
     }
 
+    // changes fragments based on navigation item which is clicked
+    //
     public  BottomNavigationView.OnItemSelectedListener onItemSelectedListener = new NavigationBarView.OnItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {

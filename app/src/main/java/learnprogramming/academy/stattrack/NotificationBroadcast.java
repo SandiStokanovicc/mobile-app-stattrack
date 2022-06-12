@@ -15,6 +15,7 @@ import androidx.core.app.NotificationCompat;
 
 import java.util.Random;
 
+// Broadcast used for daily reminder only, not for event-based notification (example: "match loaded")
 public class NotificationBroadcast extends BroadcastReceiver {
     private static final int NOTIFICATION_ID = 0;
     private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
@@ -24,7 +25,6 @@ public class NotificationBroadcast extends BroadcastReceiver {
 
         NotificationManager notificationManager = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
-
 
         //	FLAG_ACTIVITY_CLEAR_TOP
         // If set, and the activity being launched is already running in the current task,
@@ -39,6 +39,8 @@ public class NotificationBroadcast extends BroadcastReceiver {
         // This can be used if you are creating intents where only the extras change, and don't care that
         // any entities that received your previous PendingIntent will be able to launch it with your new extras
         // even if they are not explicitly given to it.
+
+        // makes the notification interactable (opens Main Activity)
         PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID,
                 notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -55,13 +57,14 @@ public class NotificationBroadcast extends BroadcastReceiver {
                 .setVibrate(new long[]{1000,1000,1000,1000,1000})
                 .setAutoCancel(true);
 
+        // Reminders won't be sent on newer devices without this code
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(PRIMARY_CHANNEL_ID,
                     "Tips / hints notification", NotificationManager.IMPORTANCE_DEFAULT);
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.BLUE);
             notificationChannel.enableVibration(true);
-            notificationChannel.setDescription("This is my notification!"); //OVO PROMIJENITI
+            notificationChannel.setDescription("This is my notification!");
 
             notificationManager.createNotificationChannel(notificationChannel);
         }
@@ -69,6 +72,7 @@ public class NotificationBroadcast extends BroadcastReceiver {
 
     }
 
+    // selects 1 random string of the 102 and uses it for the daily notification / reminder
     private String selectTipOfTheDay() {
         Random rand = new Random();
         //length = 102
@@ -179,6 +183,7 @@ public class NotificationBroadcast extends BroadcastReceiver {
         };
 
         int upperBound = tips.length;
+        // 0 - 101 (upperBound-1)
         int randomInt = rand.nextInt(upperBound);
 
         return tips[randomInt];

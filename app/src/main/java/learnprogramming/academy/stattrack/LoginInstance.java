@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+// class used for specifying whether a person is logged in. Automatically logs in user on app start
+// if the user didn't log out before closing the app
 @Entity
 public class LoginInstance {
     private String username;

@@ -13,6 +13,8 @@ import android.widget.Toast;
 import java.util.List;
 
 public class ShowFavoritePlayers extends AppCompatActivity {
+
+    // contains FavoritePlayers + info about user to which they belong
     private List<FavoritePlayerAndUser> favoritePlayerList;
     public ListView listView;
     private String username;
@@ -22,6 +24,8 @@ public class ShowFavoritePlayers extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_favorite_players);
+
+        // sets background programmatically to prevent picture squishing when scrolling is enabled
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         listView = findViewById(R.id.favorite_players_listview);
         hideSystemUI();
@@ -40,6 +44,7 @@ public class ShowFavoritePlayers extends AppCompatActivity {
             finish();
         }
 
+        // when favorite user is clicked (not the delete button), match history of said user is shown in ShowMatches activity
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
@@ -56,10 +61,12 @@ public class ShowFavoritePlayers extends AppCompatActivity {
 
     }
 
+    // onClick function for delete button which removes selected FavoritePlayer from the database
     public void deleteFavoritePlayer(View view){
+
+        // gets the user to which the favorite player belongs
         LoginInstanceDao loginInstanceDao = UserDatabase.getInstance(this).loginInstanceDao();
         LoginInstance loginInstance = loginInstanceDao.checkIfLoggedIn();
-
 
         if(loginInstance != null) {
             String userEmail = loginInstance.getEmail();
@@ -79,10 +86,19 @@ public class ShowFavoritePlayers extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
+        // if something fails when deleting favorite player (didn't occur yet and probably never will), return to MainActivity
+        else{
+            Toast.makeText(this, "Unable to delete favorite player", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
+            //prevents coming back to this activity using back button (backstack)
+            finish();
+        }
     }
 
     public void setUpAdapter(List<FavoritePlayerAndUser> favoritePlayerList){
-
         FavoritePlayerAdapter favoritePlayerAdapter = new FavoritePlayerAdapter(favoritePlayerList, this);
         listView.setAdapter(favoritePlayerAdapter);
     }

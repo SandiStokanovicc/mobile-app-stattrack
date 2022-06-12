@@ -120,16 +120,17 @@ public class RegisterFragment extends Fragment {
 
     }
 
-
-
     public void setUpProfile(View view) {
-        //inserting user into DB
+        // does nothing if register validation fails
         if(!validateUsername() | !validateEmail() | !validatePassword() | !validateConfirmPassword()){
             return;
         }
+        // starts register process for user
         else
         {
             User user=new User(username.getText().toString(),email.getText().toString(),password.getText().toString());
+            // checks if a user with the same email already exists (usernames can be the same)
+            // if no, registers current user
             if(!UserDatabase.getInstance(activity).userDao()
                     .exists(user.getEmail())) {
                 UserDatabase.getInstance(activity).userDao().addUser(user);
@@ -138,6 +139,7 @@ public class RegisterFragment extends Fragment {
                         user.getEmail()));
                 Toast.makeText(activity, "Successfully registered", Toast.LENGTH_SHORT).show();
             }
+            // if yes, warns user that registration was unsuccessful
             else{
                 Toast.makeText(activity, "User with this email already exists", Toast.LENGTH_SHORT).show();
             }

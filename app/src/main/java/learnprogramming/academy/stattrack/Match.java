@@ -2,9 +2,10 @@ package learnprogramming.academy.stattrack;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import java.util.ArrayList;
 
+// implements Parcelable so multiple matches can be placed into extras Bundle to prevent
+// calling our API multiple times (faster + lower chance of our API key getting blocked)
 public class Match implements Parcelable {
 
     private int id;
@@ -21,7 +22,7 @@ public class Match implements Parcelable {
     private ArrayList<String> items;
     private ArrayList<String> spells;
 
-
+    // Parcelable function for reading from "Bundle" (Parcel)
     public Match(Parcel in){
         String[] data = new String[11];
 
@@ -42,10 +43,33 @@ public class Match implements Parcelable {
         this.spells = in.readArrayList(Match.class.getClassLoader());
     }
 
+    // mandatory method for Parcelable interface. Implementation not important in our case
     @Override
     public int describeContents() {
         return 0;
     }
+
+    // Parcelable function for writing to "Bundle" (Parcel)
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(championIcon);
+        parcel.writeDouble(kda);
+        parcel.writeString(matchResult);
+        parcel.writeString(killsDeathsAssists);
+        parcel.writeInt(controlWardsPlaced);
+        parcel.writeInt(wardsKilled);
+        parcel.writeInt(wardsPlaced);
+        parcel.writeInt(damageDealt);
+        parcel.writeInt(damageTaken);
+        parcel.writeInt(minionsKilled);
+        parcel.writeList(items);
+        parcel.writeList(spells);
+    }
+
+    // https://developer.android.com/reference/android/os/Parcelable.Creator
+    // "Interface that must be implemented and provided as a public CREATOR field that generates
+    // instances of your Parcelable class from a Parcel."
     public static final Creator<Match> CREATOR = new Creator<Match>() {
         @Override
         public Match createFromParcel(Parcel in) {
@@ -74,32 +98,12 @@ public class Match implements Parcelable {
         this.id = id;
     }
 
-
-
-
     public ArrayList<String> getItems() {
         return items;
     }
 
     public void setItems(ArrayList<String> items) {
         this.items = items;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeString(championIcon);
-        parcel.writeDouble(kda);
-        parcel.writeString(matchResult);
-        parcel.writeString(killsDeathsAssists);
-        parcel.writeInt(controlWardsPlaced);
-        parcel.writeInt(wardsKilled);
-        parcel.writeInt(wardsPlaced);
-        parcel.writeInt(damageDealt);
-        parcel.writeInt(damageTaken);
-        parcel.writeInt(minionsKilled);
-        parcel.writeList(items);
-        parcel.writeList(spells);
     }
 
     public Match(int id, String championIcon, double kda, String matchResult, String killsDeathsAssists, int controlWardsPlaced,
